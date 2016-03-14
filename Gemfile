@@ -35,7 +35,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'simplecov', '~> 0.11.2', require: false
 end
+gem 'factory_girl_rails','~> 4.0'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
