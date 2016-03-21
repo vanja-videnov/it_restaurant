@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   validates :telephone, format: { with: /\d{3}\d{3}\d{4}/ ,message: 'only allows numbers', allow_blank: true}
   validates :manager, inclusion: {in: [true, false]}
+
+  def authenticate(password)
+    password == self.password
+  end
 end

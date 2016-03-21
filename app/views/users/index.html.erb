@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Telephone</th>
+  </tr>
+  <% if @users %>
+      <% @users.each do |u|%>
+          <tr>
+            <td><%= u.name %> &nbsp;&nbsp;</td>
+            <td><%= u.email %> &nbsp;&nbsp;<br/></td>
+            <td><%= u.telephone %></td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to 'Show', user_path(id: u.id) %>
+            </td>
+          </tr>
+
+      <% end %>
+  <%end %>
+
+</table>
