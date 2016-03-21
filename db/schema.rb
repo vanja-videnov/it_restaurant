@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314135544) do
+ActiveRecord::Schema.define(version: 20160321141542) do
 
   create_table "users", force: :cascade do |t|
     t.boolean  "manager",    default: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160314135544) do
     t.string   "telephone"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "salt"
   end
 
 end

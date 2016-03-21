@@ -6,8 +6,18 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   validates :telephone, format: { with: /\d{3}\d{3}\d{4}/ ,message: 'only allows numbers', allow_blank: true}
   validates :manager, inclusion: {in: [true, false]}
+  before_save :encrypt_password
+ # before_create :encrypt_password
+
+  def encrypt_password
+    if password.present?
+      self.salt = BCrypt::Engine.generate_salt
+      self.password= BCrypt::Engine.hash_secret(password, salt)
+    end
+  end
 
   def authenticate(password)
-    password == self.password
+    hash = BCrypt::Engine.hash_secret(password, self.salt)
+    hash == self.password
   end
 end

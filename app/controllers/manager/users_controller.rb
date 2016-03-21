@@ -8,7 +8,7 @@ class Manager::UsersController < ManagerController
     @user = User.new(user_params_for_create)
 
     if @user.save
-      redirect_to root_path
+      redirect_to manager_index_path
     else
       render 'new'
     end

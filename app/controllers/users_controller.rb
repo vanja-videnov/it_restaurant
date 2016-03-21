@@ -21,7 +21,6 @@ class UsersController < ApplicationController
   def update
     if logged_for_edit_and_update(params[:id])
       @user = User.find(params[:id])
-
       if @user.update(user_params)
         redirect_to @user
       else
@@ -38,7 +37,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    # params[:user][:id] = current_user.id
-    params.require(:user).permit(:name, :email, :telephone, :password)
+    params.require(:user).permit(:name, :email, :telephone, :manager, :password)
   end
+
 end
