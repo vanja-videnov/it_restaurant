@@ -9,8 +9,7 @@ class SessionsController < ApplicationController
       if user[:manager] == true
         redirect_to manager_index_path
       else
-        log_out
-        redirect_to root_path
+        redirect_to edit_user_path(id: user.id)
       end
     else
       flash.now[:danger] = 'Invalid email/password combination'

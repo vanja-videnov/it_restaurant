@@ -21,10 +21,18 @@ class UsersController < ApplicationController
   def update
     if logged_for_edit_and_update(params[:id])
       @user = User.find(params[:id])
-      if @user.update(user_params)
-        redirect_to @user
+      if is_manager? && current_user.id!=@user.id
+        if @user.update_attributes(user_params_manager_updating)
+          redirect_to @user
+        else
+          render 'edit'
+        end
       else
-        render 'edit'
+        if @user.update_attributes(user_params)
+          redirect_to @user
+        else
+          render 'edit'
+        end
       end
     else
       redirect_to root_path
@@ -36,8 +44,11 @@ class UsersController < ApplicationController
   end
 
   private
+  def user_params_manager_updating
+    params.require(:user).permit(:name, :email, :telephone, :manager)
+  end
   def user_params
-    params.require(:user).permit(:name, :email, :telephone, :manager, :password)
+    params.require(:user).permit(:name, :email, :telephone, :password)
   end
 
 end

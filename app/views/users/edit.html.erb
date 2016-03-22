@@ -25,11 +25,12 @@
       <%= f.label :telephone %><br>
       <%= f.text_field :telephone %>
     </p>
+    <% if @user.id == current_user.id %>
         <p>
           <%= f.label :password %><br>
-          <%= f.password_field :password %>
+          <%= f.password_field :password, required: true %>
         </p>
-
+    <% end %>
     <% if is_manager? %>
         <p>
           <%= f.label :manager %><br>
@@ -42,4 +43,3 @@
      
 <% end %>
  
-<%= link_to 'Back', user_path(id: @user.id) %>
