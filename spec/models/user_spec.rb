@@ -144,4 +144,22 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#authenticate' do
+    before do
+      @user  = FactoryGirl.create(:user_waiter)
+    end
+    context 'when correct password' do
+      it 'returns true' do
+        expect(BCrypt::Engine.hash_secret('123456vv', @user.salt)).to eq(@user.password)
+        expect(@user.authenticate('123456vv')).to eq(true)
+      end
+    end
+    context 'when not correct password' do
+      it 'returns false' do
+        expect(@user.authenticate('blaaaa')).to eq(false)
+      end
+    end
+  end
+
+
 end
