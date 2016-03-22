@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Telephone</th>
+  </tr>
+  <% if @user %>
+      <tr>
+        <td><%= @user.name %> &nbsp; &nbsp;</td>
+        <td><%= @user.email %> &nbsp; &nbsp;<br/></td>
+        <td><%= @user.telephone %> <br/></td>
+      </tr>
+      <% if logged_in? && is_manager? %>
+          <tr>
+            <td>
+              <%= link_to 'Edit', edit_user_path(id: @user.id) %>
+            </td>
+            <td>
+              <%= link_to 'Delete', manager_user_path(id: @user.id), method: :delete %>
+            </td>
+          </tr>
+      <% end %>
+  <% end %>
+</table>
+<br/>
+<%= link_to '<- Back to users', users_path %>
