@@ -20,9 +20,17 @@ Rails.application.routes.draw do
   #   resources :products
 
   resources :users, only:[:index, :show, :edit, :update]
+  resources :menus, only:[:index, :show]
+  resources :items, only:[:index, :show]
   resources :manager, only: :index
   namespace :manager do
     resources :users, only:[:new, :create, :destroy]
+    resources :categories, only:[:new, :create, :show, :edit, :update, :destroy] do
+      resources :subcategories, only:[:new, :create, :edit, :update, :destroy]
+    end
+    resources :menus , only:[:new, :create, :edit, :update, :destroy] do
+      resources :items, only:[:new, :create, :edit, :update, :destroy]
+    end
   end
   # Example resource route with options:
   #   resources :products do

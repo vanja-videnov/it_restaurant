@@ -1,0 +1,13 @@
+<h1>Create subcategory</h1>
+<%= form_for [:manager, @subcategory], url: manager_category_subcategories_path(category_id: @subcategory.category_id) do |f| %>  
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+     
+<% end %>
+ 
+<%= link_to 'Back', manager_index_path %>

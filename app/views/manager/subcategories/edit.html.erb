@@ -1,0 +1,12 @@
+<h1>Editing subcategory</h1>
+<%= form_for :subcategory, url: manager_subcategory_path(id: @subcategory.id), method: :patch do |f| %>  
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+     
+<% end %>
+<%= link_to '<- Back to edit menu', manager_category_path(id: @subcategory.category_id) %>

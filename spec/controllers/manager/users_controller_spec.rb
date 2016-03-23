@@ -61,7 +61,7 @@ RSpec.describe Manager::UsersController, type: :controller do
 
 
   describe 'DELETE #destroy' do
-    context 'when is admin' do
+    context 'when is manager' do
       it 'delete selected user' do
         delete :destroy, id: @user_waiter
         expect(User.exists?(@user_waiter.id)).to be_falsey
@@ -72,7 +72,7 @@ RSpec.describe Manager::UsersController, type: :controller do
         expect(response). to redirect_to(users_path)
       end
     end
-    context 'when is not admin' do
+    context 'when is not manager' do
       before do
         log_out
         log_in(@user_waiter)

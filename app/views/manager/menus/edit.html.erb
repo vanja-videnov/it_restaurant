@@ -1,0 +1,52 @@
+<h1>Editing menu</h1>
+<%= form_for :menu, url: manager_menu_path(@menu), method: :patch do |f| %>  
+    <% if @menu.errors.any? %>   
+        <div id="error_explanation">
+                <h2>
+                  <%= pluralize(@menu.errors.count, "error") %> prohibited
+                  this menu from being saved:
+                </h2>
+          <ul>        
+            <% @menu.errors.full_messages.each do |msg| %>          
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <p>
+      <%= f.label :date %><br>
+      <%= f.date_select :date %>
+    </p>
+    <br/>
+    <% if @menu.items %>
+        <p>Items:</p>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+          <% @menu.items.each do |item| %>
+              <tr>
+                <td><%= item.name %> &nbsp; &nbsp;</td>
+                <td><%= item.description %> &nbsp; &nbsp;</td>
+                <td><%= item.price %> &nbsp; &nbsp;
+                <td><%= link_to 'Edit', edit_manager_menu_item_path(menu_id:@menu, id: item.id) %> &nbsp; &nbsp;</td>
+                <td><%= link_to 'Delete', manager_menu_item_path(menu_id:@menu, id: item.id), method: :delete %> &nbsp; &nbsp;</td>
+              </tr>
+          <%end%>
+        </table>
+    <% end %>
+
+    <br/>
+        <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu) %>
+    <br/><br/>
+    <p>
+      <%= f.submit %>
+    </p>
+     
+<% end %>
+
+<br/><br/>
+<%= link_to '<- Back to menu', menu_path(id: @menu) %>
+ 
