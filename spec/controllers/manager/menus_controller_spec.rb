@@ -45,14 +45,27 @@ RSpec.describe Manager::MenusController, type: :controller do
     end
 
     context 'when manager is logged in' do
-      it 'creates new instance of menu' do
-        post :create, menu: attributes_for(:menu, date: '2015-03-03')
-        expect(Menu.count).to eq(@count)
-      end
+      context 'when params are valid' do
+        it 'creates new instance of menu' do
+          post :create, menu: attributes_for(:menu, date: '2015-03-03')
+          expect(Menu.count).to eq(@count)
+        end
 
-      it 'show root path' do
-        post :create,  menu: attributes_for(:menu, date: '2015-03-03')
-        expect(response).to redirect_to menus_path
+        it 'show root path' do
+          post :create,  menu: attributes_for(:menu, date: '2015-03-03')
+          expect(response).to redirect_to menus_path
+        end
+      end
+      context 'when params are not valid' do
+        it 'dont create new instance of menu' do
+          post :create, menu: attributes_for(:menu, date: '2015-32-3')
+          expect(Menu.count).not_to eq(@count)
+        end
+
+        it 'show form for new menu' do
+          post :create,  menu: attributes_for(:menu, date: '2015-32-3')
+          expect(response).to render_template :new
+        end
       end
     end
 
@@ -152,6 +165,25 @@ RSpec.describe Manager::MenusController, type: :controller do
           patch :update, id: @menu, menu: attributes_for(:menu, date: '2011-03-03')
           @menu.reload
           expect(response).to redirect_to menu_path(id: @menu)
+        end
+      end
+      context 'when params are not valid' do
+        it 'dont update specific menu' do
+          patch :update, id: @menu, menu: attributes_for(:menu, date: '2011-33-03')
+          @menu.reload
+          expect(@menu.date).to eq(Date.parse('2016-03-22'))
+        end
+
+        it 'dont render that menu page' do
+          patch :update, id: @menu, menu: attributes_for(:menu, date: '2011-33-03')
+          @menu.reload
+          expect(response).not_to redirect_to menu_path(id: @menu)
+        end
+
+        it 'render edit menu page' do
+          patch :update, id: @menu, menu: attributes_for(:menu, date: '2011-33-03')
+          @menu.reload
+          expect(response).to render_template :edit
         end
       end
     end

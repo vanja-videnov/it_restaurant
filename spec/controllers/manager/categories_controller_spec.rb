@@ -97,14 +97,32 @@ RSpec.describe Manager::CategoriesController, type: :controller do
     end
 
     context 'when manager is logged in' do
-      it 'creates new instance of category' do
-        post :create, category: attributes_for(:category)
-        expect(Category.count).to eq(@count)
-      end
+      context 'when params are valid' do
+        it 'creates new instance of category' do
+          post :create, category: attributes_for(:category)
+          expect(Category.count).to eq(@count)
+        end
 
-      it 'show root path' do
-        post :create, category: attributes_for(:category)
-        expect(response).to redirect_to menus_path
+        it 'show root path' do
+          post :create, category: attributes_for(:category)
+          expect(response).to redirect_to menus_path
+        end
+      end
+      context 'when params are not valid' do
+        it 'dont create new instance of category' do
+          post :create, category: attributes_for(:category, name: '')
+          expect(Category.count).not_to eq(@count)
+        end
+
+        it 'dont show root path' do
+          post :create, category: attributes_for(:category, name: '')
+          expect(response).not_to redirect_to menus_path
+        end
+
+        it 'show new form' do
+          post :create, category: attributes_for(:category, name: '')
+          expect(response).to render_template :new
+        end
       end
     end
 
@@ -213,17 +231,38 @@ RSpec.describe Manager::CategoriesController, type: :controller do
   describe 'PATCH #update' do
 
     context 'when is manager' do
-        it 'update specific category' do
-          patch :update, id: subj_category, category: attributes_for(:category, name: 'fish')
+      context 'when params are valid' do
+          it 'update specific category' do
+            patch :update, id: subj_category, category: attributes_for(:category, name: 'fish')
+            subj_category.reload
+            expect(subj_category.name).to eq('fish')
+          end
+
+          it 'renders that category page' do
+            patch :update, id: subj_category, category: attributes_for(:category, name: 'fish')
+            subj_category.reload
+            expect(response).to redirect_to manager_category_path(id: subj_category)
+          end
+      end
+      context 'when params are not valid' do
+        it 'dont update specific category' do
+          patch :update, id: subj_category, category: attributes_for(:category, name: '')
           subj_category.reload
-          expect(subj_category.name).to eq('fish')
+          expect(subj_category.name).not_to eq('fish')
         end
 
-        it 'renders that category page' do
-          patch :update, id: subj_category, category: attributes_for(:category, name: 'fish')
+        it 'dont renders that category page' do
+          patch :update, id: subj_category, category: attributes_for(:category, name: '')
           subj_category.reload
-          expect(response).to redirect_to manager_category_path(id: subj_category)
+          expect(response).not_to redirect_to manager_category_path(id: subj_category)
         end
+
+        it 'renders edit category page' do
+          patch :update, id: subj_category, category: attributes_for(:category, name: '')
+          subj_category.reload
+          expect(response).to render_template :edit
+        end
+      end
     end
 
     context 'when logged user is not manager' do
