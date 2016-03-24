@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  has_many :order_menu_items, dependent: :destroy
   belongs_to :subcategory
   belongs_to :menu
 

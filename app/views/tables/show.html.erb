@@ -1,0 +1,27 @@
+<table>
+  <% if @table %>
+  <tr>
+    <th>Number:<%= @table.number %> &nbsp; &nbsp;</th>
+    <th>Sum:<%= @table.sum %> &nbsp; &nbsp;</th>
+    <th>Payment:<%= @table.payment %>&nbsp; &nbsp;</th>
+    <th>
+      <%= link_to 'PAY', table_path(id: @table), method: :patch %>
+    </th>
+  </tr>
+  <% end %>
+</table>
+
+<br/>
+<% if @table.orders %>
+    <% @table.orders.each do |o| %>
+        <% o.order_menu_items.each do |p| %>
+            <%= p.item.name %> <%= p.quantity %>
+            <br/>
+        <%end%>
+
+    <%end%>
+<%end%>
+<br/>
+<%= link_to 'order', new_table_order_path(table_id: @table)%>
+<br/><br/>
+<%= link_to '<- Back to tables', tables_path %>

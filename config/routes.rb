@@ -20,8 +20,14 @@ Rails.application.routes.draw do
   #   resources :products
 
   resources :users, only:[:index, :show, :edit, :update]
+  resources :tables, only:[:index, :show, :update] do
+    resources :orders, only:[:show, :new] do
+      resources :order_menu_items, only:[ :create]
+    end
+  end
   resources :menus, only:[:index, :show]
   resources :items, only:[:index, :show]
+
   resources :manager, only: :index
   namespace :manager do
     resources :users, only:[:new, :create, :destroy]

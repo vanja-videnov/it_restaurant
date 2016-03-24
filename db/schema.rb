@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323083901) do
+ActiveRecord::Schema.define(version: 20160324123807) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -38,6 +38,29 @@ ActiveRecord::Schema.define(version: 20160323083901) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_menu_items", force: :cascade do |t|
+    t.integer  "quantity"
+    t.string   "details"
+    t.integer  "order_id"
+    t.integer  "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "order_menu_items", ["item_id"], name: "index_order_menu_items_on_item_id"
+  add_index "order_menu_items", ["order_id"], name: "index_order_menu_items_on_order_id"
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "time"
+    t.integer  "table_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "orders", ["table_id"], name: "index_orders_on_table_id"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+
   create_table "subcategories", force: :cascade do |t|
     t.string   "name"
     t.integer  "category_id"
@@ -46,6 +69,14 @@ ActiveRecord::Schema.define(version: 20160323083901) do
   end
 
   add_index "subcategories", ["category_id"], name: "index_subcategories_on_category_id"
+
+  create_table "tables", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "sum"
+    t.boolean  "payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.boolean  "manager",    default: false

@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <th>Number&nbsp;&nbsp;</th>
+    <th>Sum&nbsp;&nbsp;</th>
+    <th>Payment</th>
+  </tr>
+  <% if @tables %>
+      <% @tables.each do |u|%>
+          <tr>
+            <td><%= u.number %> &nbsp;&nbsp;</td>
+            <td><%= u.sum %> &nbsp;&nbsp;<br/></td>
+            <td><%= u.payment %></td>
+            <td>
+              <%= link_to 'Show', table_path(id: u.id) %>
+            </td>
+          </tr>
+
+
+      <% end %>
+  <%end %>
+
+</table>
