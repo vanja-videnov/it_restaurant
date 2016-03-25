@@ -24,7 +24,11 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
 
       if current_user.id == @user.id && @user.update(user_params)
+        if is_manager?
           redirect_to @user
+        else
+          redirect_to tables_path
+        end
       elsif is_manager? && @user.update(user_params_manager_updating)
           redirect_to @user
       else

@@ -1,21 +1,37 @@
 <table>
   <% if @table %>
   <tr>
-    <th>Number:<%= @table.number %> &nbsp; &nbsp;</th>
-    <th>Sum:<%= @table.sum %> &nbsp; &nbsp;</th>
-    <th>Payment:<%= @table.payment %>&nbsp; &nbsp;</th>
-    <th>
+    <td><% if @table.payment %>
+          <%=  image_tag('table.png', size: "120") %>
+      <%else%>
+          <%= image_tag('table-red.png', size: "120") %>
+      <%end%>
+      &nbsp; &nbsp;</td>
+    <td>
+      <table>
+          <tr><td>
+            Number:<%= @table.number %> &nbsp; &nbsp;
+          </td></tr>
+          <tr><td>
+            Sum:<%= @table.sum %>
+          </td></tr>
+          <tr><td>
+            Payment:<%= @table.payment %> &nbsp; &nbsp;
+          </td></tr>
+      </table>
+      </td>
+   <td>
       <%= link_to 'PAY', table_path(id: @table), method: :patch %>
-    </th>
-  </tr>
+   </td>
   <% end %>
 </table>
 
 <br/>
-<% if @table.orders %>
+<% if @table.orders %> Items: <br/>
     <% @table.orders.each do |o| %>
         <% o.order_menu_items.each do |p| %>
             <%= p.item.name %> <%= p.quantity %>
+            <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id:@table.id, order_id:o.id), method: :delete%>
             <br/>
         <%end%>
 

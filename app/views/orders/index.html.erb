@@ -1,0 +1,14 @@
+ <% if @orders %>
+      <% @orders.each do |u|%>
+         <%= link_to image_tag('table-red.png', size: "120"), table_path(id: u.table.id), :title => u.table.sum %>
+         <br/>
+         Table:<%= u.table.number %>
+         <br/>
+         <% u.order_menu_items.each do |o|%>
+             *<%= o.item.name %>
+             <br/>
+         <%end%>
+         <br/>
+
+      <% end %>
+  <%end %>
