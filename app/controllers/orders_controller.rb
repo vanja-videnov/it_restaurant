@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :is_waiter
   def new
     @table = Table.find(params[:table_id])
     @table.update(payment: false)
@@ -19,5 +20,16 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_user.orders
+  end
+
+  private
+  def is_waiter
+    if logged_in?
+      unless !current_user.manager?
+        redirect_to manager_index_path
+      end
+    else
+      redirect_to root_path
+    end
   end
 end

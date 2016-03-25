@@ -1,4 +1,5 @@
 class OrderMenuItemsController < ApplicationController
+  before_action :is_waiter
 
   def create
     @order_menu_item = OrderMenuItem.new
@@ -41,4 +42,14 @@ class OrderMenuItemsController < ApplicationController
     end
   end
 
+  private
+  def is_waiter
+    if logged_in?
+      unless !current_user.manager?
+        redirect_to manager_index_path
+      end
+    else
+      redirect_to root_path
+    end
+  end
 end

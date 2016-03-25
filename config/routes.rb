@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :users, only:[:index, :show, :edit, :update] do
     resources :orders, only:[:index]
   end
-  resources :tables, only:[:index, :show, :update] do
+  resources :tables, only:[:index, :show, :update, :new, :create, :destroy] do
     resources :orders, only:[:show, :new] do
       resources :order_menu_items, only:[ :create, :destroy]
     end
