@@ -20,9 +20,16 @@
           </td></tr>
       </table>
       </td>
-   <td>
-      <%= link_to 'PAY', table_path(id: @table), method: :patch %>
-   </td>
+    <% if is_manager? %>
+        <td>
+          <%= link_to 'DELETE TABLE', table_path(id: @table), method: :delete %>
+        </td>
+    <% else %>
+        <td>
+          <%= link_to 'PAY', table_path(id: @table), method: :patch %>
+        </td>
+    <% end %>
+
   <% end %>
 </table>
 
@@ -38,6 +45,9 @@
     <%end%>
 <%end%>
 <br/>
-<%= link_to 'order', new_table_order_path(table_id: @table)%>
-<br/><br/>
+<% if !is_manager? %>
+    <%= link_to 'order', new_table_order_path(table_id: @table)%>
+    <br/>
+<% end %>
+<br/>
 <%= link_to '<- Back to tables', tables_path %>

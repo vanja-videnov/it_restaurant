@@ -1,5 +1,12 @@
 class SessionsController < ApplicationController
   def new
+    if logged_in?
+      if current_user.manager?
+        redirect_to manager_index_path
+      else
+        redirect_to tables_path
+      end
+    end
   end
 
   def create

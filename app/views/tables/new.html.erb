@@ -1,0 +1,14 @@
+Existing tables: <br/>
+<% @tables.each do |t| %>
+    <%= t.number %> &nbsp; &nbsp;
+<% end %>
+
+<%= form_for(:table, url: tables_path) do |f| %>
+
+    <%= f.label :number %>
+    <%= f.text_field :number, type: 'number' %>
+
+    <br/>
+
+    <%= f.submit "Save table" %>
+<% end %>

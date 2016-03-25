@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :manager, default: false
       t.string :email, :null => false
       t.string :password, :null => false
+      t.string :salt
       t.string :name
       t.string :telephone
 
