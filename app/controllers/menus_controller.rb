@@ -13,12 +13,6 @@ before_action :is_logged_in
 
   private
   def is_logged_in
-      if logged_in?
-        unless current_user.manager?
-          redirect_to tables_path
-        end
-      else
-        redirect_to root_path
-      end
+    redirect_to root_path unless logged_in?
   end
 end
