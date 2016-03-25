@@ -1,0 +1,39 @@
+<% if @category %>
+    <table>
+      <tr>
+        <th>Name</th>
+      </tr>
+      <tr>
+        <td><%= @category.name %> &nbsp; &nbsp;</td>
+        <td>
+          <%= link_to 'Edit', edit_manager_category_path(id: @category.id) %>&nbsp;&nbsp;
+        </td>
+        <td>
+          <%= link_to 'Delete', manager_category_path(id: @category.id), method: :delete %>
+        </td>
+      </tr>
+    </table>
+    <hr/>
+    <% if @category.subcategories %>
+    <p>Subcategories: &nbsp;&nbsp;<%= link_to 'New', new_manager_category_subcategory_path(category_id: @category) %></p>
+    <table>
+      <tr>
+        <th>Name</th>
+      </tr>
+
+          <% @category.subcategories.each do |u|%>
+              <tr>
+                <td>*<%= u.name %> &nbsp;&nbsp;</td>
+                <td>
+                  <%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id:@category) %>&nbsp;&nbsp;
+                </td>
+                <td>
+                  <%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete %>
+                </td>
+              </tr>
+          <% end %>
+    </table>
+      <%end %>
+<% end %>
+<br/>
+<%= link_to '<- Back', menus_path %>

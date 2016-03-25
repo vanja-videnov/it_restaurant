@@ -1,0 +1,39 @@
+<table>
+  <tr>
+    <th>Date</th>
+  </tr>
+  <% if @menu %>
+      <tr>
+        <td><%= @menu.date %> &nbsp; &nbsp;</td>
+      </tr>
+      <% if @menu.items %>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+            </tr>
+            <% @menu.items.each do |item| %>
+                  <tr>
+                    <td><%= item.name %> &nbsp; &nbsp;</td>
+                    <td><%= item.description %> &nbsp; &nbsp;</td>
+                    <td><%= item.price %> &nbsp; &nbsp;</td>
+                  </tr>
+            <%end%>
+          </table>
+      <% end %>
+      <% if logged_in? && is_manager? %>
+          <tr><td><br/></td></tr>
+          <tr>
+            <td>
+              <%= link_to 'Edit', edit_manager_menu_path(id: @menu.id)  %> &nbsp; &nbsp;
+            </td>
+            <td>
+              <%= link_to 'Delete', manager_menu_path(id: @menu.id), method: :delete %>
+            </td>
+          </tr>
+      <% end %>
+  <% end %>
+</table>
+<br/><br/>
+<%= link_to '<- Back to menus', menus_path %>

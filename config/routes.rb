@@ -19,10 +19,26 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :users, only:[:index, :show, :edit, :update]
+  resources :users, only:[:index, :show, :edit, :update] do
+    resources :orders, only:[:index]
+  end
+  resources :tables, only:[:index, :show, :update] do
+    resources :orders, only:[:show, :new] do
+      resources :order_menu_items, only:[ :create, :destroy]
+    end
+  end
+  resources :menus, only:[:index, :show]
+  resources :items, only:[:index, :show]
+
   resources :manager, only: :index
   namespace :manager do
     resources :users, only:[:new, :create, :destroy]
+    resources :categories, only:[:new, :create, :show, :edit, :update, :destroy] do
+      resources :subcategories, only:[:new, :create, :edit, :update, :destroy]
+    end
+    resources :menus , only:[:new, :create, :edit, :update, :destroy] do
+      resources :items, only:[:new, :create, :edit, :update, :destroy]
+    end
   end
   # Example resource route with options:
   #   resources :products do

@@ -1,0 +1,36 @@
+<p>Menu list: &nbsp; &nbsp; <%= link_to 'New', new_manager_menu_path unless @menus%></p>
+<table>
+  <tr>
+    <th>Date</th>
+  </tr>
+  <% if @menus %>
+      <% @menus.each do |u|%>
+          <tr>
+            <td><%= u.date %> &nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to 'Show', menu_path(id: u.id) %>
+            </td>
+          </tr>
+      <% end %>
+  <%end %>
+</table>
+<hr/>
+
+<p>Categories: &nbsp;&nbsp;<%= link_to 'New', new_manager_category_path %></p>
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% if @categories %>
+      <% @categories.each do |u|%>
+          <tr>
+            <td>*<%= u.name %> &nbsp;&nbsp;</td>
+            <td>
+              <%= link_to 'Show', manager_category_path(id: u.id) %>
+            </td>
+          </tr>
+      <% end %>
+  <%end %>
+</table>

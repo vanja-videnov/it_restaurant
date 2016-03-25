@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+      <% @items.each do |u|%>
+          <tr>
+            <td><%= u.name %> &nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to 'Add', table_order_order_menu_items_path(table_id:@table.id, order_id:@order.id, item_id: u.id), method: :post %>
+            </td>
+          </tr>
+
+      <% end %>
+
+</table>
+<br/>
+<%= link_to 'Save order', table_path(id:@table) %>

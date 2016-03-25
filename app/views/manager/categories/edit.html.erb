@@ -1,0 +1,12 @@
+<h1>Editing category</h1>
+<%= form_for :category, url: manager_category_path(id: @category.id), method: :patch do |f| %>  
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+     
+<% end %>
+<%= link_to '<- Back to edit menu', manager_category_path(id: @category) %>

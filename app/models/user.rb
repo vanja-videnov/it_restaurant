@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :orders, dependent: :destroy
 
   EMAIL_REGEXP = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
