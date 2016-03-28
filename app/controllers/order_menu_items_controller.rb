@@ -12,16 +12,23 @@ class OrderMenuItemsController < ApplicationController
       @order_menu_item.save
       @sum = @table.sum + @order_menu_item.item.price
       @table.update_attributes(sum: @sum)
+      Report.create(date: Date.today.to_s, table_id:@table.id, category_id:@item.subcategory.category.id, subcategory_id: @item.subcategory.id, item_id:@item.id)
       redirect_to table_order_path(table_id:params[:table_id], id:params[:order_id])
     else
       @order_menu_item = OrderMenuItem.create(order_id: @order.id, item_id: @item.id, quantity: 1)
       @sum = @table.sum + @order_menu_item.item.price
       @table.update_attributes(sum: @sum)
+      Report.create(date: Date.today.to_s, table_id:@table.id, category_id:@item.subcategory.category.id, subcategory_id: @item.subcategory.id, item_id:@item.id)
       redirect_to table_order_path(table_id:@table, id:@order)
     end
   end
   def destroy
+
     @order_menu_item = OrderMenuItem.find(params[:id])
+    if params[:delete] == 'true'
+      @report = Report.where(item_id: @order_menu_item.item.id, table_id:@order_menu_item.order.table.id).to_a.last
+      @report.destroy
+    end
     @order_menu_item.quantity -= 1
     @order_menu_item.order.table.sum -= @order_menu_item.item.price
     @table = @order_menu_item.order.table

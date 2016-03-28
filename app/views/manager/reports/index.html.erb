@@ -1,0 +1,21 @@
+<table class="table table-hover">
+  <thead></thead>
+  <tbody>
+  <tr style="border-bottom: hidden">
+    <td align="center"><%= link_to image_tag('report-date.jpeg', size: "200"), manager_report_path(id: 1), :title => 'per day' %>
+    <td align="center"><%= link_to image_tag('per_items.jpg', size: "200"), manager_report_path(id: 2), :title => 'per items' %></td>
+    </td>
+    <td align="center"><%= link_to image_tag('report-tables.png', size: "200"), manager_report_path(id: 3), :title => 'per table' %></td>
+    <td align="center"><%= link_to image_tag('per-category.jpg', size: "200"), manager_report_path(id: 4), :title => 'per category' %></td>
+  </tr>
+  <tr>
+    <td align="center">Daily report</td>
+    <td align="center">Items statistics</td>
+    <td align="center">Tables statistics</td>
+    <td align="center">Category statistics</td>
+  </tr>
+  </tbody>
+</table>
+
+
+

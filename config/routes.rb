@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   resources :manager, only: :index
   namespace :manager do
+    resources :reports, only:[:show, :index]
     resources :users, only:[:new, :create, :destroy]
     resources :categories, only:[:new, :create, :show, :edit, :update, :destroy] do
       resources :subcategories, only:[:new, :create, :edit, :update, :destroy]

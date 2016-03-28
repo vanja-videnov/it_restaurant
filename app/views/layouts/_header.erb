@@ -4,8 +4,9 @@
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
             <% if is_manager? %>
-                <li><%= link_to "Home", manager_index_path %></li>
-                <li><%= link_to "Users", users_path %></li>
+                <li><%= link_to 'Home', manager_index_path %></li>
+                <li><%= link_to 'Reports', manager_reports_path %></li>
+                <li><%= link_to 'Users', users_path %></li>
             <% else %>
                 <li><%= link_to 'Orders', user_orders_path(user_id:current_user) %></li>
             <%end%>
@@ -16,16 +17,16 @@
                 Account <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Settings", edit_user_path(current_user.id) %></li>
+                <li><%= link_to 'Settings', edit_user_path(current_user.id) %></li>
                 <li class="divider"></li>
                 <li>
-                  <%= link_to "Log out", logout_path, method: "delete" %>
+                  <%= link_to 'Log out', logout_path, method: 'delete' %>
                 </li>
               </ul>
             </li>
         <% else %>
-            <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Log in", login_path %></li>
+            <li><%= link_to 'Home', root_path %></li>
+            <li><%= link_to 'Log in', login_path %></li>
         <% end %>
       </ul>
     </nav>
