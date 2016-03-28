@@ -1,20 +1,20 @@
-<table>
+<table width="100%">
   <tr>
     <th></th>
     <th>&nbsp;&nbsp;</th>
   </tr>
   <% if @tables %>
-      <% @tables.each do |u|%>
+      <% @tables.each_slice(4) do |slice|%>
           <tr>
-            <td><%= u.number %> &nbsp;&nbsp;</td>
-            <td><% if u.payment %>
+          <% slice.each do |u| %>
+            <td align="center"><%= u.number %> &nbsp;&nbsp;<% if u.payment %>
                   <%= link_to image_tag('table.png', size: "200"), table_path(id: u.id), :title => u.sum %>
                   <%else%>
                   <%= link_to image_tag('table-red.png', size: "200"), table_path(id: u.id), :title => u.sum %>
               <%end%>
                   </td>
+          <%end%>
           </tr>
-
 
       <% end %>
   <%end %>

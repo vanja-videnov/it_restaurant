@@ -1,39 +1,34 @@
 <% if @category %>
-    <table>
-      <tr>
-        <th>Name</th>
-      </tr>
-      <tr>
-        <td><%= @category.name %> &nbsp; &nbsp;</td>
-        <td>
-          <%= link_to 'Edit', edit_manager_category_path(id: @category.id) %>&nbsp;&nbsp;
-        </td>
-        <td>
+    <table class="table table-hover">
+      <tr style="border-bottom: hidden">
+        <th>Name:&nbsp;<%= @category.name %>
+        </th>
+        <th>
+          <%= link_to 'Edit', edit_manager_category_path(id: @category.id) %>
+        </th>
+        <th>
           <%= link_to 'Delete', manager_category_path(id: @category.id), method: :delete %>
-        </td>
+        </th>
       </tr>
-    </table>
-    <hr/>
-    <% if @category.subcategories %>
-    <p>Subcategories: &nbsp;&nbsp;<%= link_to 'New', new_manager_category_subcategory_path(category_id: @category) %></p>
-    <table>
-      <tr>
-        <th>Name</th>
-      </tr>
-
+      <% if @category.subcategories %>
+          <tr>
+            <td colspan="2" align="center"><i>Subcategories:</i> &nbsp;&nbsp;<%= link_to 'New', new_manager_category_subcategory_path(category_id: @category) %></td>
+            <td></td>
+          </tr>
           <% @category.subcategories.each do |u|%>
               <tr>
-                <td>*<%= u.name %> &nbsp;&nbsp;</td>
+                <td>*<%= u.name %></td>
                 <td>
-                  <%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id:@category) %>&nbsp;&nbsp;
+                  <%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id:@category) %>
                 </td>
                 <td>
                   <%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete %>
                 </td>
               </tr>
           <% end %>
+      <%end%>
     </table>
-      <%end %>
+
 <% end %>
 <br/>
 <%= link_to '<- Back', menus_path %>

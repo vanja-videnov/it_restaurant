@@ -1,14 +1,39 @@
  <% if @orders %>
-      <% @orders.each do |u|%>
-         <%= link_to image_tag('table-red.png', size: "120"), table_path(id: u.table.id), :title => u.table.sum %>
-         <br/>
-         Table:<%= u.table.number %>
-         <br/>
-         <% u.order_menu_items.each do |o|%>
-             *<%= o.item.name %>
-             <br/>
-         <%end%>
-         <br/>
+     <table class="table table-hover">
+       <tbody>
+       <tr>
+         <% @orders.each_slice(4) do |slice|%>
+             <tr>
+               <% slice.each do |u| %>
+             <td valign="top">
+               <table class="table table-hover">
+                 <tr>
+                   <td>
+                     <%= link_to image_tag('table-red.png', size: "120"), table_path(id: u.table.id), :title => u.table.sum %>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>
+                     <i>Table:<%= u.table.number %></i>
+                   </td>
+                 </tr>
+                 <% u.order_menu_items.each do |o|%>
+                     <tr>
+                       <td>
 
-      <% end %>
+                         *<%= o.item.name %>
+                       </td>
+                     </tr>
+                 <%end%>
+               </table>
+
+             </td>
+               <% end%>
+             </tr>
+
+         <% end %>
+       </tr>
+       </tbody>
+     </table>
+
   <%end %>

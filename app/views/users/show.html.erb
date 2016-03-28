@@ -1,26 +1,26 @@
-<table>
+<table class="table table-hover">
+  <thead>
   <tr>
     <th>Name</th>
     <th>Email</th>
     <th>Telephone</th>
+    <th></th>
   </tr>
+  </thead>
   <% if @user %>
       <tr>
         <td><%= @user.name %> &nbsp; &nbsp;</td>
-        <td><%= @user.email %> &nbsp; &nbsp;<br/></td>
-        <td><%= @user.telephone %> <br/></td>
+        <td><%= @user.email %> &nbsp; &nbsp;</td>
+        <td><%= @user.telephone %> </td>
       </tr>
       <% if logged_in? && is_manager? %>
           <tr>
-            <td>
+            <td colspan="4" align="center">
               <%= link_to 'Edit', edit_user_path(id: @user.id) %>
-            </td>
-            <td>
+            &nbsp;&nbsp;&nbsp; &nbsp;
               <%= link_to 'Delete', manager_user_path(id: @user.id), method: :delete %>
             </td>
           </tr>
       <% end %>
   <% end %>
 </table>
-<br/>
-<%= link_to '<- Back to users', users_path %>

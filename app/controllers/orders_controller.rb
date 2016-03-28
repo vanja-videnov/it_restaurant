@@ -9,12 +9,15 @@ class OrdersController < ApplicationController
       @order = Order.create(user_id: current_user.id, table_id:@table.id)
     end
     @items = Item.all
+    @categories = Category.all
   end
 
   def show
     @order = Order.find(params[:id])
     @items = Item.all
     @table = Table.find(params[:table_id])
+    @categories = Category.all
+
     render :new
   end
 

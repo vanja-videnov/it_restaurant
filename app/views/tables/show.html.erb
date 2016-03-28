@@ -43,7 +43,7 @@
         <br/>
         <% o.order_menu_items.each do |p| %>
             *<%= p.item.name %> <%= p.quantity %>
-            <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id:@table.id, order_id:o.id), method: :delete%>
+            <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id:@table.id, order_id:o.id), method: :delete unless is_manager?%>
             <br/>
         <%end%>
         <br/>

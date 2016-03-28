@@ -11,6 +11,7 @@ class ManagerController < ApplicationController
     end
   end
   def index
+    @menu = Menu.first
 
   end
 

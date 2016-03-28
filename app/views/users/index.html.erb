@@ -1,23 +1,28 @@
-<table>
+<table class="table table-hover">
+  <thead>
   <tr>
     <th>Name</th>
     <th>Email</th>
     <th>Telephone</th>
+    <th></th>
   </tr>
+  </thead>
   <% if @users %>
+      <tbody>
       <% @users.each do |u|%>
           <tr>
             <td><%= u.name %> &nbsp;&nbsp;</td>
             <td><%= u.email %> &nbsp;&nbsp;<br/></td>
             <td><%= u.telephone %></td>
-          </tr>
-          <tr>
             <td>
-              <%= link_to 'Show', user_path(id: u.id) %>
+              <%= link_to 'Show', user_path(id: u.id) %>&nbsp;&nbsp;
+              <%= link_to 'Edit', edit_user_path(id: u.id) %>&nbsp;&nbsp;
+              <%= link_to 'Delete', manager_user_path(id: u.id), method: :delete %>
             </td>
           </tr>
 
       <% end %>
+      </tbody>
   <%end %>
 
 </table>
