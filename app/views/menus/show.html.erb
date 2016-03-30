@@ -4,7 +4,7 @@
       <tr>
         <th>Date: &nbsp; <%= @menu.date %> &nbsp; &nbsp;
           <% if is_manager? %>
-              <%= link_to 'Delete', manager_menu_path(id: @menu.id), method: :delete %>
+              <%= link_to 'Delete', manager_menu_path(id: @menu.id), method: :delete, class: "btn btn-primary" %>
           <% end %>
         </th>
       </tr>
@@ -16,10 +16,12 @@
               <table class="table table-hover">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Price</th>
-                  <th><%= link_to 'Edit menu', edit_manager_menu_path(id: @menu.id) unless !is_manager?%> &nbsp; &nbsp;</th>
+                  <td><b><i>Name</i></b></td>
+                  <td><b><i>Description</i></b></td>
+                  <td><b><i>Price</i></b></td>
+                  <td>
+                    <b><i><%= link_to 'Edit menu', edit_manager_menu_path(id: @menu.id), class: "btn btn-primary" unless !is_manager? %> &nbsp; &nbsp;</i></b>
+                  </th>
                 </tr>
                 </thead>
                 <% @menu.items.each do |item| %>
@@ -28,7 +30,7 @@
                       <td><%= item.name %> &nbsp; &nbsp;</td>
                       <td><%= item.description %> &nbsp; &nbsp;</td>
                       <td><%= item.price %> &nbsp; &nbsp;</td>
-                      <td><%= link_to 'Edit', edit_manager_menu_item_path(menu_id:@menu, id: item.id) unless !is_manager?%> &nbsp; &nbsp;</td>
+                      <td><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) unless !is_manager? %> &nbsp; &nbsp;</td>
                     </tr>
                     </tbody>
                 <% end %>
@@ -39,3 +41,48 @@
       </tbody>
   <% end %>
 </table>
+
+
+<% if @subcategories %>
+    <p>Subcategories</p>
+    <table width="100%" class="table table-hover">
+      <tbody>
+      <tr>
+        <% @subcategories.each_slice(3) do |slice| %>
+          <tr>
+            <% slice.each do |o| %>
+                <td>
+                  <% if o.items.count>0 %>
+                      <table class="table table-hover">
+                        <thead>
+                        <tr>
+                          <td><i><b><%= o.name if o.items.count>0 %></b></i></td>
+                          <td><i>price</i></td>
+                          <td><i></i></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% o.items.each do |i| %>
+                            <tr>
+                              <td>
+                                <%= i.name %>
+                              </td>
+                              <td>
+                                <%= i.price %>
+                              </td>
+                              <td>
+                                <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: i.menu_id, id: i.id) unless !is_manager? %>
+                              </td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                      </table>
+                  <% end %>
+                </td>
+            <% end %>
+          </tr>
+      <% end %>
+      </tr>
+      </tbody>
+    </table>
+<% end %>
