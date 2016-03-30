@@ -189,7 +189,7 @@ RSpec.describe UsersController, type: :controller do
         it 'renders that user page' do
           patch :update, id: @user_waiter.id, user: attributes_for(:user_waiter, name: "Vanja Vanjaa")
           @user_waiter.reload
-          expect(response).to redirect_to(action: :show)
+          expect(response).to redirect_to tables_path
         end
       end
     end
@@ -217,7 +217,21 @@ RSpec.describe UsersController, type: :controller do
         it 'renders that user page' do
           patch :update, id: @user_waiter.id, user: attributes_for(:user_waiter, name: "Vanja Vanjaa")
           @user_waiter.reload
-          expect(response).to redirect_to(action: :show)
+          expect(response).to redirect_to user_path(@user_waiter)
+        end
+      end
+
+      context 'when edit himself' do
+        it 'update specific user' do
+          patch :update, id: user.id, user: attributes_for(:user_waiter, name: "Vanja Vanjaa", email: user.email, manager: true)
+          user.reload
+          expect(user.name).to eq("Vanja Vanjaa")
+        end
+
+        it 'renders that user page' do
+          patch :update, id: user.id, user: attributes_for(:user_waiter, name: "Vanja Vanjaa", email: user.email, manager: true)
+          user.reload
+          expect(response).to redirect_to user_path(user)
         end
       end
     end

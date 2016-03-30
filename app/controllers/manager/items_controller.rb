@@ -7,10 +7,8 @@ class Manager::ItemsController  < ManagerController
   end
 
   def create
-    @item = Item.new(item_params)
-    @item.menu_id = params[:menu_id]
-    @item.subcategory = Subcategory.find(params[:item][:subcategory])
-    if @item.save
+    @created = Item.create_with_params(item_params,params[:menu_id],params[:item][:subcategory])
+    if @created
       redirect_to edit_manager_menu_path(id: params[:menu_id])
     else
       render 'new'

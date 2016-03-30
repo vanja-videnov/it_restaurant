@@ -9,15 +9,46 @@ RSpec.describe SessionsController, type: :controller do
   let(:manager) { true}
   it { expect(user).to be_valid }
 
+  include SessionsHelper
+
   describe 'GET #new' do
-    it 'returns http success' do
-      get :new
-      expect(response).to have_http_status(:success)
+    context 'when is not logged in' do
+      it 'returns http success' do
+        get :new
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'renders login form' do
+        get :new
+        expect(response). to render_template :new
+      end
+    end
+    context 'when is logged in waiter' do
+      before do
+        @waiter = create(:user_waiter)
+        log_in(@waiter)
+      end
+      after do
+        log_out
+      end
+      it 'redirect to tables path' do
+        get :new
+        expect(response).to redirect_to tables_path
+      end
     end
 
-    it 'renders login form' do
-      get :new
-      expect(response). to render_template :new
+    context 'when is logged in manager' do
+      before do
+        @manager = create(:user_waiter, manager: true)
+        log_in(@manager)
+      end
+      after do
+        log_out
+      end
+      it 'redirect to manager dashboard' do
+        get :new
+        expect(response).to redirect_to manager_index_path
+      end
     end
   end
 

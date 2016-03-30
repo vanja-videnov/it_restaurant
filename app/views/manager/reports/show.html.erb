@@ -1,40 +1,7 @@
-<% if @all %>
-Per tables:<br/>
-<% @reports.group(:table_id, :item_id).order('table_id asc').each do |report| %>
-    Table:<%= report.table.number %>
-    Item:<%= report.item.name%>
-    <br/>
-<% end %>
-<hr/>
-
-Per items:<br/>
-<% @reports.group(:item_id).count(:item_id, :distinct => true).each do |report,count| %>
-    <%= @reports.find_by(item_id: report).item.name %>
-    Count:<%= count%>
-    <br/>
-<% end %>
-<hr/>
-Number of items per table:
-<br/>
-<% @reports.group(:table_id).count(:item_id, :distinct => true).each do |t,c| %>
-    Table:<%= t %> /
-   <%= c %> item(s)
-    <br/>
-<% end %>
-<hr/>
-Number of categories per table:
-<br/>
-<% @reports.group(:table_id, :category_id).order('table_id asc').count(:category_id, :distinct => true).each do |t,c| %>
-    Table:<%= t.first %> / Category:<%= @reports.find_by(category_id:t.second).category.name %> ->
-    <%= c %> item(s)
-    <br/>
-<% end %>
-    <hr/>
-<% end%>
 <% if @per_items %>
 Per items:<br/>
 <% @per_items.each do |report,count| %>
-    <%= @reports.find_by(item_id: report).item.name %>
+    <%= @all.find_by(item_id: report).item.name %>
     Count:<%= count%>
     <br/>
 <% end %><hr/>
@@ -62,7 +29,7 @@ Per items:<br/>
     Categories per table:
     <br/>
     <% @per_category.each do |t,c| %>
-        Table:<%= t.first %> / Category:<%= @reports.find_by(category_id:t.second).category.name %> ->
+        Table:<%= t.first %> / Category:<%= @all.find_by(category_id:t.second).category.name %> ->
         <%= c %> item(s)
         <br/>
     <% end %>

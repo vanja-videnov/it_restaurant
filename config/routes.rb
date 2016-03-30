@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
   resources :menus, only:[:index, :show]
-  resources :items, only:[:index, :show]
+  # resources :items, only:[:index, :show]
 
   resources :manager, only: :index
   namespace :manager do

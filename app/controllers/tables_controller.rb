@@ -18,18 +18,17 @@ class TablesController < ApplicationController
   end
 
   def create
-    @table = Table.create(number: params[:table][:number], sum: 0, payment:true)
-    redirect_to tables_path
+    @table = Table.new(number: params[:table][:number], sum: 0, payment:true)
+    if @table.save
+      redirect_to tables_path
+    else
+      render 'new'
+    end
   end
 
   def update
-    @table = Table.find(params[:id])
-    @table.sum = 0
-    @table.payment = true
-    @table.orders.destroy_all
-    @table.save
+    Table.pay(params[:id])
     redirect_to action: :index
-
   end
 
   def destroy
@@ -37,7 +36,6 @@ class TablesController < ApplicationController
     @table.destroy
     redirect_to tables_path
   end
-
   private
   def is_logged_in
     redirect_to root_path unless logged_in?
