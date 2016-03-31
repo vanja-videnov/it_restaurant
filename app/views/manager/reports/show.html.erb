@@ -1,38 +1,44 @@
 <% if @per_items %>
-Per items:<br/>
-<% @per_items.each do |report,count| %>
-    <%= @all.find_by(item_id: report).item.name %>
-    Count:<%= count%>
-    <br/>
-<% end %><hr/>
-<% end%>
+
+    <div >
+      <b><u>Per items:</u></b><br/>
+      <% @per_items.each do |report, count| %>
+          <%= @all.find_by(item_id: report).item.name %>
+          Count:<%= count %>
+          <br/>
+      <% end %>
+    </div>
+<% end %>
 
 <% if @per_table %>
-    Per tables:<br/>
-    <% @per_table.each do |report| %>
-        Table:<%= report.table.number %>
-        Item:<%= report.item.name%>
-        <br/>
-    <% end %>
-    <hr/>
-    Number of items per table:
-    <br/>
-    <% @item_per_table.each do |t,c| %>
-        Table:<%= t %> /
-        <%= c %> item(s)
-        <br/>
-    <% end %>
-    <hr/>
-<% end%>
+    <div >
+      <b><u>Per tables:</u></b><br/>
+      <% @per_table.each do |report| %>
+          Table:<%= report.table.number %>
+          Item:<%= report.item.name %>
+          <br/>
+      <% end %>
+      <hr/>
+      <b>Number of items per table:</b>
+      <br/>
+      <% @item_per_table.each do |t, c| %>
+          Table:<%= t %> /
+          <%= c %> item(s)
+          <br/>
+      <% end %>
+      <hr/>
+    </div>
+<% end %>
+
 
 <% if @per_category %>
-    Categories per table:
-    <br/>
-    <% @per_category.each do |t,c| %>
-        Table:<%= t.first %> / Category:<%= @all.find_by(category_id:t.second).category.name %> ->
-        <%= c %> item(s)
-        <br/>
-    <% end %>
-    <hr/>
-
-<%end%>
+    <div >
+      <b><u>Categories per table:</u></b>
+      <br/>
+      <% @per_category.each do |t, c| %>
+          Table:<%= t.first %> / Category:<%= @all.find_by(category_id: t.second).category.name %> ->
+          <%= c %> item(s)
+          <br/>
+      <% end %>
+    </div>
+<% end %>

@@ -1,16 +1,16 @@
-Existing tables: <br/>
+<p><b>Existing tables:</b></p>
 <% @tables.each do |t| %>
     <%= t.number %> &nbsp; &nbsp;
 <% end %>
-
+<br/><br/>
 <%= form_for(:table, url: tables_path) do |f| %>
 
     <%= f.label :number %>
     <%= f.text_field :number, type: 'number' %>
 
-    <br/>
+    <br/><br/>
 
-    <%= f.submit "Save table" %>
+    <%= f.submit "Save table", class: "btn btn-lg btn-primary" %>
 <% end %>
 <br/>
 <%= link_to 'Back', manager_index_path %>

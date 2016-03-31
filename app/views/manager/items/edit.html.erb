@@ -1,4 +1,3 @@
-<h1>Editing item</h1>
 <%= form_for :item, url: manager_menu_item_path(menu_id:@item.menu_id, id: @item.id), method: :patch do |f| %>  
     <% if @item.errors.any? %>   
         <div id="error_explanation">
@@ -15,12 +14,12 @@
     <% end %>
     <p>
       <%= f.label :subcategory %><br>
-      <%= f.select :subcategory, Subcategory.all.collect {|u| [u.name, u.id]}, { include_blank: false } %>
+      <%= f.select :subcategory, Subcategory.all.collect {|u| [u.name, u.id]}, :selected => [@item.subcategory.name, @item.subcategory.id] %>
     </p>
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>
-        </p>
+    </p>
     <p>
       <%= f.label :description %><br>
       <%= f.text_area :description %>
@@ -30,7 +29,7 @@
       <%= f.text_field :price, type: 'number' %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit class: "btn btn-lg btn-primary"%>
     </p>
      
 <% end %>

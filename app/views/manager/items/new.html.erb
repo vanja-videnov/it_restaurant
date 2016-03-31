@@ -1,4 +1,4 @@
-<h1>Create item</h1>
+
 <%= form_for [:manager, @item], url: manager_menu_items_path(menu_id: @item.menu_id) do |f| %>  
     <% if @item.errors.any? %>   
         <div id="error_explanation">
@@ -30,7 +30,7 @@
       <%= f.text_field :price, type: 'number' %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit  class: "btn btn-primary" %>
     </p>
      
 <% end %>

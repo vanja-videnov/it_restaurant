@@ -1,26 +1,25 @@
 <table class="table table-hover">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Telephone</th>
-    <th></th>
+  <tbody>
+  <tr style="border-top: hidden">
+    <td><i><b>Name</b></i></td>
+    <td><i><b>Email</b></i></td>
+    <td><i><b>Telephone</b></i></td>
   </tr>
-  </thead>
   <% if @user %>
       <tr>
-        <td><%= @user.name %> &nbsp; &nbsp;</td>
-        <td><%= @user.email %> &nbsp; &nbsp;</td>
+        <td><%= @user.name %></td>
+        <td><%= @user.email %></td>
         <td><%= @user.telephone %> </td>
       </tr>
       <% if logged_in? && is_manager? %>
           <tr>
-            <td colspan="4" align="center">
-              <%= link_to 'Edit', edit_user_path(id: @user.id) %>
-            &nbsp;&nbsp;&nbsp; &nbsp;
-              <%= link_to 'Delete', manager_user_path(id: @user.id), method: :delete %>
+            <td colspan="3" align="center">
+              <%= link_to 'Edit', edit_user_path(id: @user.id), class: "btn btn-lg btn-primary" %>
+              &nbsp;&nbsp;&nbsp; &nbsp;
+              <%= link_to 'Delete', manager_user_path(id: @user.id), method: :delete, class: "btn btn-lg btn-primary" %>
             </td>
           </tr>
       <% end %>
   <% end %>
+  </tbody>
 </table>

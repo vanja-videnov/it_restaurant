@@ -1,4 +1,4 @@
-<h1>Create user</h1>
+
 <%= form_for [:manager, @user] do |f| %>  
     <% if @user.errors.any? %>   
         <div id="error_explanation">
@@ -16,7 +16,7 @@
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>
-        </p>
+    </p>
     <p>
       <%= f.label :email %><br>
       <%= f.text_field :email %>
@@ -24,14 +24,14 @@
     <p>
       <%= f.label :password %><br>
       <%= f.text_field :password %>
-        </p>
+    </p>
     <p>
       <%= f.label :telephone %><br>
       <%= f.text_field :telephone %>
     </p>
     <p>
-      <%= f.submit %>
-        </p>
+      <%= f.submit  class: "btn btn-lg btn-primary"%>
+    </p>
      
 <% end %>
  

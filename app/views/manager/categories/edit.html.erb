@@ -1,11 +1,11 @@
-<h1>Editing category</h1>
+
 <%= form_for :category, url: manager_category_path(id: @category.id), method: :patch do |f| %>  
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit  class: "btn btn-lg btn-primary"%>
     </p>
      
 <% end %>

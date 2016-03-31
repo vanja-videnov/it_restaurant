@@ -1,28 +1,26 @@
 <table class="table table-hover">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Telephone</th>
-    <th></th>
+  <tbody>
+  <tr style="border-top: hidden">
+    <td><i><b>Name</b></i></td>
+    <td><i><b>Email</b></i></td>
+    <td><i><b>Telephone</b></i></td>
+    <td><i><b>Options</b></i></td>
   </tr>
-  </thead>
   <% if @users %>
-      <tbody>
-      <% @users.each do |u|%>
+      <% @users.each do |u| %>
           <tr>
-            <td><%= u.name %> &nbsp;&nbsp;</td>
-            <td><%= u.email %> &nbsp;&nbsp;<br/></td>
+            <td><%= u.name %></td>
+            <td><%= u.email %><br/></td>
             <td><%= u.telephone %></td>
             <td>
-              <%= link_to 'Show', user_path(id: u.id) %>&nbsp;&nbsp;
-              <%= link_to 'Edit', edit_user_path(id: u.id) %>&nbsp;&nbsp;
-              <%= link_to 'Delete', manager_user_path(id: u.id), method: :delete %>
+              <%= link_to 'Show', user_path(id: u.id), class: "btn btn-primary" %>&nbsp;&nbsp;
+              <%= link_to 'Edit', edit_user_path(id: u.id), class: "btn btn-primary" %>&nbsp;&nbsp;
+              <%= link_to 'Delete', manager_user_path(id: u.id), method: :delete, class: "btn btn-primary" %>
             </td>
           </tr>
 
       <% end %>
-      </tbody>
-  <%end %>
+  <% end %>
+  </tbody>
 
 </table>

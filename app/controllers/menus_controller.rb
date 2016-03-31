@@ -8,7 +8,9 @@ before_action :is_logged_in
 
   def show
     @menu = Menu.find(params[:id])
+    @items = @menu.items.joins(:subcategories).joins(:categories).group(:category_id)
 
+    @subcategories = Subcategory.includes(:items, :category).where(:items => {menu_id: @menu}).all
   end
 
   private

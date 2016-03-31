@@ -22,32 +22,55 @@
       </td>
     <% if is_manager? %>
         <td>
-          <%= link_to 'DELETE TABLE', table_path(id: @table), method: :delete %>
+          <%= link_to 'DELETE TABLE', table_path(id: @table), method: :delete, class: "btn btn-lg btn-primary"%>
         </td>
     <% else %>
         <td>
-          <b><%= link_to 'PAY', table_path(id: @table), method: :patch %></b>
+          <b><%= link_to 'PAY', table_path(id: @table), method: :patch, class: "btn btn-lg btn-primary" %></b>
         </td>
     <% end %>
 
   <% end %>
 </table>
 <br/>
-<% if !is_manager? %>
-    <b><%= link_to 'ORDER', new_table_order_path(table_id: @table)%></b>
-<% end %>
-<hr/>
+    <b><%= link_to 'ORDER', new_table_order_path(table_id: @table), class: "btn  btn-primary" unless is_manager?%></b>
+<br/>
+<br/>
 <% if @table.orders %>
+    <table class="table ">
+      <tr style="border-top: hidden">
     <% @table.orders.each do |o| %>
-        <i><%= o.user.name %></i>
-        <br/>
-        <% o.order_menu_items.each do |p| %>
-            *<%= p.item.name %> <%= p.quantity %>
-            <%= link_to 'delete', table_order_order_menu_item_path(id: p.id, table_id:@table.id, order_id:o.id, delete:true), method: :delete unless is_manager?%>
-            &nbsp;&nbsp;
-            <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id:@table.id, order_id:o.id, delete:false), method: :delete unless is_manager?%>
-            <br/>
-        <%end%>
-        <br/>
+          <td >
+            <table class="table ">
+              <tr style="border-bottom: hidden">
+                <td>
+                  <i><%= o.user.name %></i>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <table class="table table-hover">
+                    <% o.order_menu_items.each do |p| %>
+                        <tr>
+                          <td>
+                            *<%= p.item.name %>
+                            </td>
+                          <td> <%= p.quantity %></td>
+                          <td>
+                            <i><%= link_to 'delete', table_order_order_menu_item_path(id: p.id, table_id:@table.id, order_id:o.id, delete:true), method: :delete unless is_manager? %></i>
+                            &nbsp;&nbsp;
+                            <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id:@table.id, order_id:o.id, delete:false), method: :delete,class: "btn btn-primary" unless is_manager?%>
+
+                          </td>
+                        </tr>
+
+                    <%end%>
+                  </table>
+              </td>
+              </tr>
+            </table>
+          </td>
     <%end%>
+      </tr>
+    </table>
 <%end%>

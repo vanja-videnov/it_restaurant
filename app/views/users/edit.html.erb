@@ -1,4 +1,3 @@
-<h1>Editing user</h1>
 <%= form_for :user, url: user_path(@user), method: :patch do |f| %>  
     <% if @user.errors.any? %>   
         <div id="error_explanation">
@@ -16,7 +15,7 @@
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>
-        </p>
+    </p>
     <p>
       <%= f.label :email %><br>
       <%= f.text_field :email %>
@@ -34,12 +33,12 @@
     <% if is_manager? %>
         <p>
           <%= f.label :manager %><br>
-          <%= f.check_box :manager %>
+          <%= f.check_box :manager%>
         </p>
     <% end %>
     <p>
-      <%= f.submit %>
-        </p>
+      <%= f.submit class: "btn btn-lg btn-primary" %>
+    </p>
      
 <% end %>
  
