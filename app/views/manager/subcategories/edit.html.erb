@@ -1,11 +1,11 @@
-<h1>Editing subcategory</h1>
+
 <%= form_for :subcategory, url: manager_category_subcategory_path(id: @subcategory.id, category_id:@subcategory.category), method: :patch do |f| %>  
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit  class: "btn btn-lg btn-primary" %>
     </p>
      
 <% end %>

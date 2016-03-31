@@ -1,32 +1,33 @@
 <% if @category %>
     <table class="table table-hover">
-      <tr style="border-bottom: hidden">
-        <th>Name:&nbsp;<%= @category.name %>
-        </th>
-        <th>
-          <%= link_to 'Edit', edit_manager_category_path(id: @category.id) %>
-        </th>
-        <th>
-          <%= link_to 'Delete', manager_category_path(id: @category.id), method: :delete %>
-        </th>
+      <tr style="border-bottom: hidden;border-top: hidden">
+        <td><b>Name:</b>&nbsp;<%= @category.name %></td>
+        <td >
+          <%= link_to 'Edit', edit_manager_category_path(id: @category.id) %>&nbsp;&nbsp;
+          <%= link_to 'Delete', manager_category_path(id: @category.id), method: :delete, class: "btn btn-primary" %>
+        </td>
       </tr>
+    </table>
+    <br/>
+    <table class="table table-hover">
       <% if @category.subcategories %>
-          <tr>
-            <td colspan="2" align="center"><i>Subcategories:</i> &nbsp;&nbsp;<%= link_to 'New', new_manager_category_subcategory_path(category_id: @category) %></td>
-            <td></td>
+          <tr style="border-top: hidden">
+            <th>
+              <b><i>Subcategories:</i></b> &nbsp;&nbsp;<%= link_to 'New', new_manager_category_subcategory_path(category_id: @category) %>
+            </th>
+            <th></th>
           </tr>
-          <% @category.subcategories.each do |u|%>
+          <% @category.subcategories.each do |u| %>
               <tr>
-                <td>*<%= u.name %></td>
-                <td>
-                  <%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id:@category) %>
-                </td>
-                <td>
-                  <%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete %>
+                <td >*<%= u.name %></td>
+                <td style="text-align: left">
+                  <%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id: @category) %>
+                  &nbsp;&nbsp;
+                  <%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete, class: "btn btn-primary" %>
                 </td>
               </tr>
           <% end %>
-      <%end%>
+      <% end %>
     </table>
 
 <% end %>
