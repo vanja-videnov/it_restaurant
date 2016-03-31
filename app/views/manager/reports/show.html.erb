@@ -3,10 +3,10 @@
     <div >
       <b><u>Per items:</u></b><br/>
       <% @per_items.each do |report, count| %>
-          <%= @all.find_by(item_id: report).item.name %>
-          Count:<%= count %>
+          <%= @all.find_by(item_id: report).item.name %>: <%= count %>
           <br/>
       <% end %>
+      <hr/>
     </div>
 <% end %>
 
@@ -14,11 +14,9 @@
     <div >
       <b><u>Per tables:</u></b><br/>
       <% @per_table.each do |report| %>
-          Table:<%= report.table.number %>
-          Item:<%= report.item.name %>
+          Table:<%= report.table.number %>, <%= report.item.name %>
           <br/>
       <% end %>
-      <hr/>
       <b>Number of items per table:</b>
       <br/>
       <% @item_per_table.each do |t, c| %>
