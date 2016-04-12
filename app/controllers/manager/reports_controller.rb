@@ -2,33 +2,46 @@ class Manager::ReportsController < ApplicationController
   before_action :require_manager
 
   def index
-
   end
 
   def show
+  end
 
-    @today = Date.current.to_s
-    @reports = Report.where(date: @today)
-    @all = Report.all
+  def daily
+    get_reports
+    @per_items = Report.per_items('daily')
+    @per_table = Report.per_table('daily')
+    @item_per_table = Report.item_per_table('daily')
+    @per_category = Report.per_category('daily')
+    render action: :show
+  end
 
-    id = params[:id]
-    case id
-      when '1'
-        @per_items = Report.per_items('daily')
-        @per_table = Report.per_table('daily')
-        @item_per_table = Report.item_per_table('daily')
-        @per_category = Report.per_category('daily')
-      when '2'
-        @per_items = Report.per_items('all')
-      when '3'
-        @per_table = Report.per_table('all')
-        @item_per_table = Report.item_per_table('all')
-      when '4'
-        @per_category = Report.per_category('all')
-    end
+  def items
+    get_reports
+    @per_items = Report.per_items('all')
+    render action: :show
+  end
+
+  def tables
+    get_reports
+    @per_table = Report.per_table('all')
+    @item_per_table = Report.item_per_table('all')
+    render action: :show
+  end
+
+  def categories
+    get_reports
+    @per_category = Report.per_category('all')
+    render action: :show
   end
 
   private
+
+  def get_reports
+    @reports = Report.where(date: Date.current)
+    @all = Report.all
+  end
+
   def require_manager
     if logged_in?
       unless current_user.manager?

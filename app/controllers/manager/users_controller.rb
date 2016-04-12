@@ -1,7 +1,6 @@
 class Manager::UsersController < ManagerController
   def new
     @user = User.new
-
   end
 
   def create
@@ -24,6 +23,6 @@ class Manager::UsersController < ManagerController
   private
   def user_params_for_create
     params[:user][:manager] = false
-    params.require(:user).permit(:name, :email, :manager, :telephone, :password)
+    params.require(:user).permit(:name, :email, :manager, :telephone, :password, :manager)
   end
 end

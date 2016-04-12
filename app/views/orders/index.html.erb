@@ -1,46 +1,46 @@
- <% if @orders %>
-     <table class="table ">
-       <tbody>
-       <tr style="border: hidden">
-         <% @orders.each_slice(4) do |slice|%>
-             <tr style="border: hidden">
-               <% slice.each do |u| %>
-             <td valign="top">
-               <table class="table">
-                 <tr style="border: hidden">
-                   <td>
-                     <%= link_to image_tag('table-red.png', size: "120"), table_path(id: u.table.id), :title => u.table.sum %>
-                   </td>
-                 </tr>
-                 <tr style="border: hidden">
-                   <th>
-                     <i>Table:<%= u.table.number %></i>
-                   </th>
-                 </tr>
-                 <td>
-                   <table class="table table-hover">
-                     <% u.order_menu_items.each do |o|%>
-                         <tr>
-                           <td >
-                             *<%= o.item.name %>
-                           </td>
-                           <td style="text-align: left">
-                             <%= o.quantity %>
-                           </td>
-                         </tr>
-                     <%end%>
-                   </table>
-                 </td>
+<% if @orders %>
+    <table class="table ">
+      <tbody>
+      <tr style="border: hidden">
+        <% @orders.each_slice(4) do |slice| %>
+          <tr style="border: hidden">
+            <% slice.each do |u| %>
+                <td valign="top">
+                  <table class="table">
+                    <tr style="border: hidden">
+                      <td>
+                        <%= link_to image_tag('table-red.png', size: "120"), table_path(id: u.table.id), :title => u.table.sum %>
+                      </td>
+                    </tr>
+                    <tr style="border: hidden">
+                      <th>
+                        <i>Table:<%= u.table.number %></i>
+                      </th>
+                    </tr>
+                    <td>
+                      <table class="table table-hover">
+                        <% u.order_menu_items.each do |o| %>
+                            <tr>
+                              <td>
+                                *<%= o.item.name %>
+                              </td>
+                              <td style="text-align: left">
+                                <%= o.quantity %>
+                              </td>
+                            </tr>
+                        <% end %>
+                      </table>
+                    </td>
 
-               </table>
+                  </table>
 
-             </td>
-               <% end%>
-             </tr>
+                </td>
+            <% end %>
+          </tr>
 
-         <% end %>
-       </tr>
-       </tbody>
-     </table>
+      <% end %>
+      </tr>
+      </tbody>
+    </table>
 
-  <%end %>
+<% end %>

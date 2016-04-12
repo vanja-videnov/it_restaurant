@@ -1,5 +1,6 @@
 class MenusController < ApplicationController
-before_action :is_logged_in
+  before_action :is_logged_in
+
   def index
     @menus = Menu.all
     @subcategories = Subcategory.all

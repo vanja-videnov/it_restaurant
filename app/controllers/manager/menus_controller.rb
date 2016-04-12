@@ -1,8 +1,7 @@
-class Manager::MenusController  < ManagerController
+class Manager::MenusController < ManagerController
 
   def new
     @menu = Menu.new
-
   end
 
   def create
@@ -16,18 +15,18 @@ class Manager::MenusController  < ManagerController
   end
 
   def edit
-      @menu = Menu.find(params[:id])
-      render 'edit'
+    @menu = Menu.find(params[:id])
+    render 'edit'
   end
 
   def update
-      @menu = Menu.find(params[:id])
+    @menu = Menu.find(params[:id])
 
-      if @menu.update(menu_params)
-        redirect_to @menu
-      else
-        render 'edit'
-      end
+    if @menu.update(menu_params)
+      redirect_to @menu
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -39,7 +38,7 @@ class Manager::MenusController  < ManagerController
   private
 
   def menu_params
-    params.require(:menu).permit(:date)
+    params.require(:menu).permit(:date, :name)
   end
 
 end

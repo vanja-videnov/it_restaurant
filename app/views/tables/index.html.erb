@@ -1,23 +1,22 @@
 <table width="100%">
   <tr>
-    <th></th>
-    <th>&nbsp;&nbsp;</th>
+    <td colspan="4"><%= link_to 'Add table', new_table_path, class: "btn btn-primary" if current_user.manager? %></td>
   </tr>
   <% if @tables %>
-      <% @tables.each_slice(4) do |slice|%>
+      <% @tables.each_slice(4) do |slice| %>
           <tr>
-          <% slice.each do |u| %>
-            <td align="center"><%= u.number %> &nbsp;&nbsp;<% if u.payment %>
-                  <%= link_to image_tag('table.png', size: "200"), table_path(id: u.id), :title => u.sum %>
-                  <%else%>
-                  <%= link_to image_tag('table-red.png', size: "200"), table_path(id: u.id), :title => u.sum %>
-              <%end%>
-                  </td>
-          <%end%>
+            <% slice.each do |u| %>
+                <td align="center"><%= u.number %> &nbsp;&nbsp;
+                  <% if u.payment %>
+                      <%= link_to image_tag('table.png', size: "200"), table_path(id: u.id), :title => u.sum %>
+                  <% else %>
+                      <%= link_to image_tag('table-red.png', size: "200"), table_path(id: u.id), :title => u.sum %>
+                  <% end %>
+                </td>
+            <% end %>
           </tr>
-
       <% end %>
-  <%end %>
+  <% end %>
 
 </table>
 <br/>

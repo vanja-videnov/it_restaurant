@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   get 'require_manager' => 'manager#require_manager'
+
+  get 'manager_reports_daily' => 'manager/reports#daily'
+  get 'manager_reports_items' => 'manager/reports#items'
+  get 'manager_reports_tables' => 'manager/reports#tables'
+  get 'manager_reports_categories' => 'manager/reports#categories'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -2,27 +2,29 @@ class OrderMenuItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :item
 
-  def self.update_existing(order_menu_item)
-    order_menu_item.quantity += 1
-    order_menu_item.save
-    sum = order_menu_item.order.table.sum + order_menu_item.item.price
-    order_menu_item.order.table.update_attributes(sum: sum)
-    Report.create(date: Date.today.to_s, table_id:order_menu_item.order.table.id, category_id:order_menu_item.item.subcategory.category.id, subcategory_id: order_menu_item.item.subcategory.id, item_id:order_menu_item.item.id)
+  def update_existing
+    increment!(:quantity, 1)
+    self.order.table.increment!(:sum, self.item.price)
+    Report.create(date: Date.today, table_id: self.order.table.id, category_id: self.item.subcategory.category.id, subcategory_id: self.item.subcategory.id, item_id: self.item.id)
   end
 
-  def self.create_new(order, item)
-    order_menu_item = OrderMenuItem.create(order_id: order.id, item_id: item.id, quantity: 1)
-    sum = order_menu_item.order.table.sum + item.price
-    order_menu_item.order.table.update_attributes(sum: sum)
-    Report.create(date: Date.today.to_s, table_id: order_menu_item.order.table.id, category_id: order_menu_item.item.subcategory.category.id, subcategory_id: order_menu_item.item.subcategory.id, item_id: item.id)
+  def delete_and_update(param)
+    Report.destroy_if_exist(self.item.id, self.order.table.id) if param == 'true'
+
+    decrement!(:quantity, 1)
+    self.order.table.decrement!(:sum, self.item.price)
+
+    if self.quantity == 0
+      if self.order.table.sum == 0
+        self.order.table.pay
+        'empty'
+      else
+        self.destroy
+        'one'
+      end
+    else
+      'one'
+    end
   end
 
-  def self.delete_and_update(order_menu_item)
-    order_menu_item.quantity -= 1
-    order_menu_item.order.table.sum -= order_menu_item.item.price
-    table = order_menu_item.order.table
-    table.save
-    order_menu_item.save
-    order_menu_item
-  end
 end

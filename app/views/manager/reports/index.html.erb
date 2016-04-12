@@ -2,11 +2,10 @@
   <thead></thead>
   <tbody>
   <tr style="border-bottom: hidden">
-    <td align="center"><%= link_to image_tag('report-date.jpeg', size: "200"), manager_report_path(id: 1), :title => 'per day' %>
-    <td align="center"><%= link_to image_tag('per_items.jpg', size: "200"), manager_report_path(id: 2), :title => 'per items' %></td>
-    </td>
-    <td align="center"><%= link_to image_tag('report-tables.png', size: "200"), manager_report_path(id: 3), :title => 'per table' %></td>
-    <td align="center"><%= link_to image_tag('per-category.jpg', size: "200"), manager_report_path(id: 4), :title => 'per category' %></td>
+    <td align="center"><%= link_to image_tag('report-date.jpeg', size: "200"), manager_reports_daily_path, :title => 'per day' %>
+    <td align="center"><%= link_to image_tag('per_items.jpg', size: "200"), manager_reports_items_path, :title => 'per items' %></td>
+    <td align="center"><%= link_to image_tag('report-tables.png', size: "200"), manager_reports_tables_path, :title => 'per table' %></td>
+    <td align="center"><%= link_to image_tag('per-category.jpg', size: "200"), manager_reports_categories_path, :title => 'per category' %></td>
   </tr>
   <tr>
     <td align="center">Daily report</td>

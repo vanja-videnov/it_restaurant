@@ -1,14 +1,18 @@
-class Manager::SubcategoriesController  < ManagerController
+class Manager::SubcategoriesController < ManagerController
   def new
-    @subcategory = Subcategory.new
-    @subcategory.category_id = params[:category_id]
+    if Category.count!=0
+      @subcategory = Subcategory.new
+      @subcategory.category_id = params[:category_id]
+    else
+      flash[:error] = 'Please add category first!'
+      redirect_to menus_path
+    end
   end
 
   def create
     @subcategory = Subcategory.new(subcategory_params)
-    @subcategory.category = Category.find(params[:category_id])
     if @subcategory.save
-      redirect_to manager_category_path(id: @subcategory.category_id)
+      redirect_to menus_path
     else
       render 'new'
     end
@@ -38,6 +42,6 @@ class Manager::SubcategoriesController  < ManagerController
   private
 
   def subcategory_params
-    params.require(:subcategory).permit(:name)
+    params.require(:subcategory).permit(:name, :category_id)
   end
 end
