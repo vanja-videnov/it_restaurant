@@ -10,13 +10,20 @@ class Report < ActiveRecord::Base
   end
 
   def self.per_items(param)
-    if param == 'daily'
-      reports = get_today_reports
-      @per_items = reports.group(:item_id).count(:item_id, :distinct => true)
-    else
-      reports = Report.all
-      @per_items = reports.group(:item_id).count(:item_id, :distinct => true)
-    end
+    # if param == 'daily'
+    #   reports = get_today_reports
+    #   @per_items = reports.group(:item_id).count(:item_id, :distinct => true)
+    # else
+    #   reports = Report.all
+    #   @per_items = reports.group(:item_id).count(:item_id, :distinct => true)
+    # end
+
+    reports = if param == 'daily'
+                get_today_reports
+              else
+                all
+              end
+    reports.group(:item_id).count(:item_id, :distinct => true)
   end
 
   def self.per_table(param)

@@ -19,5 +19,6 @@
 #Ignore idea
 .idea
 
-#Ignore rspec
-/spec/*
+#Ignore rspec coverage
+/spec/factories/coverage/*
+/app/controllers/coverage/*

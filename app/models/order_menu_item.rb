@@ -9,7 +9,7 @@ class OrderMenuItem < ActiveRecord::Base
   end
 
   def delete_and_update(param)
-    Report.destroy_if_exist(self.item.id, self.order.table.id) if param == 'true'
+    Report.destroy_if_exist(self.item_id, self.order.table_id) if param == 'true'
 
     decrement!(:quantity, 1)
     self.order.table.decrement!(:sum, self.item.price)
