@@ -84,8 +84,6 @@ RSpec.describe OrderMenuItemsController, type: :controller do
       context 'when that order item already exist' do
         it 'updates count of that order_item' do
           post :create, table_id:table, order_id:order, item_id:item
-          expect(assigns(:item)).to eq(item)
-          expect(assigns(:order)).to eq(order)
           expect(assigns(:order_menu_item)).to eq(subj_omi)
           subj_omi.reload
           expect(assigns(:order_menu_item).quantity).to eq(@quantity+1)
@@ -109,28 +107,29 @@ RSpec.describe OrderMenuItemsController, type: :controller do
       end
 
       context 'when that order item dont exist' do
+        before do
+          @order2 = create(:order, table: table)
+        end
         it 'creates new order-item' do
-          post :create, table_id:table, order_id:order, item_id: @item_2
-          expect(assigns(:item)).to eq(@item_2)
-          expect(assigns(:order)).to eq(order)
+          post :create, table_id:table, order_id: @order2, item_id: @item_2
           subj_omi.reload
-          expect(assigns(:order_menu_item)).to eq(nil)
+          expect(assigns(:order_menu_item)).not_to eq(nil)
           expect(OrderMenuItem.count).to eq(@number_of_omi+1)
         end
 
         it 'updates table sum for new-order' do
-          post :create, table_id:table, order_id:order, item_id:@item_2
+          post :create, table_id:table, order_id: @order2, item_id:@item_2
           subj_omi.reload
           expect(subj_omi.order.table.sum).to eq(@item_2.price+@sum)
         end
 
         it 'redirect to table-order path' do
-          post :create, table_id:table.id, order_id:order.id, item_id:@item_2
-          expect(response).to redirect_to table_order_path(table_id: table, id: order)
+          post :create, table_id:table.id, order_id: @order2, item_id:@item_2
+          expect(response).to redirect_to table_order_path(table_id: table, id: @order2)
         end
 
         it 'creates new report' do
-          post :create, table_id:table.id, order_id:order.id, item_id:@item_2
+          post :create, table_id:table.id, order_id: @order2, item_id:@item_2
           expect(Report.count).to eq(@number_of_reports+1)
         end
       end

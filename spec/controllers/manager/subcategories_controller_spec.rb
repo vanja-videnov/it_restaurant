@@ -69,7 +69,7 @@ RSpec.describe Manager::SubcategoriesController, type: :controller do
 
         it 'show root path' do
           post :create, category_id: @category, subcategory: attributes_for(:subcategory)
-          expect(response).to redirect_to manager_category_path(id: @category)
+          expect(response).to redirect_to menus_path
         end
       end
       context 'when params are not valid' do

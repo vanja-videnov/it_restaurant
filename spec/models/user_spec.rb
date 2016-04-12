@@ -138,7 +138,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'when is not boolean value' do
-      let(:manager) { 'bdskjbdjksbds' }
+      let(:manager) { !!'bdskjbdjksbds'}
 
       it_behaves_like 'a valid user'
     end

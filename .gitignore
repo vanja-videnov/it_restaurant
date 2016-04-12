@@ -22,3 +22,5 @@
 #Ignore rspec coverage
 /spec/factories/coverage/*
 /app/controllers/coverage/*
+/coverage/*.json
+/coverage/*.lock

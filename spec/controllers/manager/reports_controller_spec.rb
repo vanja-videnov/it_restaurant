@@ -23,7 +23,7 @@ RSpec.describe Manager::ReportsController, type: :controller do
 
     context 'when is manager' do
       it 'renders the show view' do
-        get :show, id: '1'
+        get :daily
         expect(response).to render_template :show
         expect(assigns(:reports)).to eq(Report.where(date: date))
         expect(assigns(:per_category)).to eq(Report.where(date: date).group(:table_id, :category_id).order('table_id asc').count(:category_id, :distinct => true))
@@ -34,18 +34,18 @@ RSpec.describe Manager::ReportsController, type: :controller do
       end
 
       it 'shows per item report if is selected' do
-        get :show, id: '2'
+        get :items
         expect(assigns(:per_items)).to eq(Report.all.group(:item_id).count(:item_id, :distinct => true))
       end
 
       it 'shows per table report if is selected' do
-        get :show, id: '3'
+        get :tables
         expect(assigns(:item_per_table)).to eq(Report.all.group(:table_id).count(:item_id, :distinct => true))
         expect(assigns(:per_table)).to eq(Report.all.group(:table_id, :item_id).order('table_id asc'))
       end
 
       it 'shows per category report if is selected' do
-        get :show, id: '4'
+        get :categories
         expect(assigns(:per_category)).to eq(Report.all.group(:table_id, :category_id).order('table_id asc').count(:category_id, :distinct => true))
       end
     end
@@ -60,12 +60,12 @@ RSpec.describe Manager::ReportsController, type: :controller do
         log_in(@manager)
       end
       it 'dont render the show view' do
-        get :show, id: '2'
+        get :daily
         expect(response).to redirect_to root_path
       end
 
       it 'dont assign report' do
-        get :show, id: '2'
+        get :daily
         expect(assigns(:per_items)).to eq(nil)
       end
     end
@@ -78,12 +78,12 @@ RSpec.describe Manager::ReportsController, type: :controller do
         log_in(@manager)
       end
       it 'dont render the show view' do
-        get :show, id: '2'
+        get :daily
         expect(response).to redirect_to root_path
       end
 
       it 'dont assign report' do
-        get :show, id: '2'
+        get :daily
         expect(assigns(:per_items)).to eq(nil)
       end
     end
