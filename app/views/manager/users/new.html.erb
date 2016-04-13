@@ -1,4 +1,3 @@
-
 <%= form_for [:manager, @user] do |f| %>  
     <% if @user.errors.any? %>   
         <div id="error_explanation">
@@ -30,7 +29,7 @@
       <%= f.text_field :telephone %>
     </p>
     <p>
-      <%= f.submit  class: "btn btn-lg btn-primary"%>
+      <%= f.submit class: "btn btn-lg btn-primary" %>
     </p>
      
 <% end %>

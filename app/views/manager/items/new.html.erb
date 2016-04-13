@@ -1,4 +1,3 @@
-
 <%= form_for [:manager, @item], url: manager_menu_items_path(menu_id: @item.menu_id) do |f| %>  
     <% if @item.errors.any? %>   
         <div id="error_explanation">
@@ -15,22 +14,22 @@
     <% end %>
     <p>
       <%= f.label :subcategory %><br>
-      <%= f.select :subcategory, Subcategory.all.collect {|u| [u.name, u.id]}, { include_blank: false } %>
+      <%= f.select :subcategory, Subcategory.all.collect { |u| [u.name, u.id] }, required: true %>
     </p>
     <p>
       <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, required: true %>
     </p>
     <p>
       <%= f.label :description %><br>
-      <%= f.text_area :description %>
+      <%= f.text_area :description, required: true %>
     </p>
     <p>
       <%= f.label :price %><br>
-      <%= f.text_field :price, type: 'number' %>
+      <%= f.text_field :price, type: 'number', required: true %>
     </p>
     <p>
-      <%= f.submit  class: "btn btn-primary" %>
+      <%= f.submit class: "btn btn-primary" %>
     </p>
      
 <% end %>

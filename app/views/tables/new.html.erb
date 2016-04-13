@@ -1,6 +1,8 @@
-<p><b>Existing tables:</b></p>
-<% @tables.each do |t| %>
-    <%= t.number %> &nbsp; &nbsp;
+<% if @tables.present? %>
+    <p><b>Existing tables:</b></p>
+    <% @tables.each do |t| %>
+        <%= image_tag('table.png', size: "50") %>number:<%= t.number %> &nbsp; &nbsp;&nbsp; &nbsp;
+    <% end %>
 <% end %>
 <br/><br/>
 <%= form_for(:table, url: tables_path) do |f| %>

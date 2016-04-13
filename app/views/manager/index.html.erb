@@ -5,21 +5,21 @@
     <td align="center"><%= link_to image_tag('add-user.png', size: "200"), new_manager_user_path, :title => 'New user' %></td>
     <td align="center">
       <% if @menu %>
-      <%= link_to image_tag('add-item.png', size: "200"), new_manager_menu_item_path(menu_id:@menu), :title => 'New item'%>
-       <%else%>
-      <%= image_tag('first.png', size: "200")%>
-      <% end%>
+          <%= link_to image_tag('add-item.png', size: "200"), new_manager_menu_item_path(menu_id: @menu), :title => 'New item' %>
+      <% else %>
+          <%= image_tag('first.png', size: "200") %>
+      <% end %>
     </td>
     <td align="center"><%= link_to image_tag('new-menu.jpeg', size: "200"), new_manager_menu_path, :title => 'New menu' %></td>
   </tr>
   <tr>
     <td align="center">New user</td>
-     <td align="center">New item</td>
+    <td align="center">New item</td>
     <td align="center">New menu</td>
   </tr>
   <tr style="border-bottom: hidden">
-    <td align="center" ><%= link_to image_tag('icon-category.png', size: "200"), new_manager_category_path, :title => 'New category' %></td>
-    <td align="center"><%=link_to image_tag('add-table.png', size: "200"), new_table_path, :title => 'New table'%></td>
+    <td align="center"><%= link_to image_tag('icon-category.png', size: "200"), new_manager_category_path, :title => 'New category' %></td>
+    <td align="center"><%= link_to image_tag('add-table.png', size: "200"), new_table_path, :title => 'New table' %></td>
     <td align="center"><%= link_to image_tag('exit.png', size: "200"), logout_path, method: :delete, :title => 'Log out' %></td>
   </tr>
   <tr>
@@ -27,5 +27,8 @@
     <td align="center">Add table</td>
     <td align="center">Log out</td>
   </tr>
+
   </tbody>
 </table>
+
+* Here you can add new item only in last created menu!

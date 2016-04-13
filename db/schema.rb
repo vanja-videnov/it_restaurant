@@ -34,17 +34,18 @@ ActiveRecord::Schema.define(version: 20160328131109) do
 
   create_table "menus", force: :cascade do |t|
     t.date     "date"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "order_menu_items", force: :cascade do |t|
-    t.integer  "quantity"
+    t.integer  "quantity",   default: 0
     t.string   "details"
     t.integer  "order_id"
     t.integer  "item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "order_menu_items", ["item_id"], name: "index_order_menu_items_on_item_id"
@@ -87,21 +88,21 @@ ActiveRecord::Schema.define(version: 20160328131109) do
 
   create_table "tables", force: :cascade do |t|
     t.integer  "number"
-    t.integer  "sum"
-    t.boolean  "payment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "sum",        default: 0
+    t.boolean  "payment",    default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.boolean  "manager",    default: false
     t.string   "email",                      null: false
     t.string   "password",                   null: false
+    t.string   "salt"
     t.string   "name"
     t.string   "telephone"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.string   "salt"
   end
 
 end

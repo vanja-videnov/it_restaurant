@@ -10,9 +10,9 @@ class ManagerController < ApplicationController
       redirect_to root_path
     end
   end
+
   def index
     @menu = Menu.first
-
   end
 
 end

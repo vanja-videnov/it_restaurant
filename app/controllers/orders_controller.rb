@@ -1,10 +1,10 @@
 class OrdersController < ApplicationController
   before_action :is_waiter
+
   def new
     @table = Table.find(params[:table_id])
     @table.update(payment: false)
-    @order = Order.find_by(user_id: current_user, table_id: @table)
-      @order = Order.create(user_id: current_user.id, table_id:@table.id) unless @order
+    @order = Order.find_or_create_by(user_id: current_user.id, table_id: @table.id)
     @items = Item.all
     @categories = Category.all
   end
@@ -20,10 +20,11 @@ class OrdersController < ApplicationController
   def index
     @orders = current_user.orders
   end
+
   private
   def is_waiter
     if logged_in?
-      unless !current_user.manager?
+      if current_user.manager?
         redirect_to manager_index_path
       end
     else

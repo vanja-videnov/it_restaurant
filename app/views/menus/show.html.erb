@@ -1,27 +1,45 @@
-<table class="table table-hover">
+<table class="table ">
+  <% if flash[:error] -%>
+      <p class='error'><%= h flash[:error] %></p>
+  <% end -%>
   <% if @menu %>
       <thead>
       <tr>
-        <th>Date: &nbsp; <%= @menu.date %> &nbsp; &nbsp;
-          <% if is_manager? %>
-              <%= link_to 'Delete', manager_menu_path(id: @menu.id), method: :delete, class: "btn btn-primary" %>
+        <th>
+          <% if @menu.name.present? %>Name: &nbsp;<%= @menu.name %>;&nbsp;
           <% end %>
+          Date: &nbsp;<%= @menu.date %>
         </th>
+        <% if is_manager? %>
+            <th>
+              <b><i><%= link_to 'Edit menu', edit_manager_menu_path(id: @menu.id), class: "btn btn-primary" %></i></b>
+            </th>
+            <th>
+              <i><%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu), class: "btn btn-primary" %></i>
+            </th>
+            <th>
+              <i><%= link_to 'Add category', new_manager_category_path, class: "btn btn-primary" %></i>
+            </th>
+            <th>
+              <i><%= link_to 'Add subcategory', new_manager_category_subcategory_path(category_id: 0), class: "btn btn-primary" %></i>
+            </th>
+            <th>
+              <i><%= link_to 'Delete menu', manager_menu_path(id: @menu.id), method: :delete, class: "btn btn-primary" %></i>
+            </th>
+        <% end %>
       </tr>
       </thead>
-      <% if @menu.items %>
+      <% if @menu.items.present? %>
           <tbody>
           <tr>
-            <td>
+            <td colspan="6">
               <table class="table table-hover">
                 <thead>
                 <tr>
                   <td><b><i>Name</i></b></td>
                   <td><b><i>Description</i></b></td>
                   <td><b><i>Price</i></b></td>
-                  <td>
-                    <b><i><%= link_to 'Edit menu', edit_manager_menu_path(id: @menu.id), class: "btn btn-primary" unless !is_manager? %> &nbsp; &nbsp;</i></b>
-                  </th>
+                  <td></td>
                 </tr>
                 </thead>
                 <% @menu.items.each do |item| %>
@@ -30,7 +48,7 @@
                       <td><%= item.name %> &nbsp; &nbsp;</td>
                       <td><%= item.description %> &nbsp; &nbsp;</td>
                       <td><%= item.price %> &nbsp; &nbsp;</td>
-                      <td><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) unless !is_manager? %> &nbsp; &nbsp;</td>
+                      <td><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) if is_manager? %> &nbsp; &nbsp;</td>
                     </tr>
                     </tbody>
                 <% end %>
@@ -43,9 +61,9 @@
 </table>
 
 
-<% if @subcategories %>
-    <p>Subcategories</p>
-    <table width="100%" class="table table-hover">
+<% if @subcategories.present? %>
+    <p>Items in current menu's subcategories</p>
+    <table class="table">
       <tbody>
       <tr>
         <% @subcategories.each_slice(3) do |slice| %>
@@ -71,7 +89,7 @@
                                 <%= i.price %>
                               </td>
                               <td>
-                                <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: i.menu_id, id: i.id) unless !is_manager? %>
+                                <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: i.menu_id, id: i.id) if is_manager? %>
                               </td>
                             </tr>
                         <% end %>

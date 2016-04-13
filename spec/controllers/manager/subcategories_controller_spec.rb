@@ -19,9 +19,29 @@ RSpec.describe Manager::SubcategoriesController, type: :controller do
 
   describe 'GET #new' do
     context 'when is manager' do
-      it 'renders the new view' do
-        get :new, category_id: @category
-        expect(response).to render_template :new
+      context 'when at least one category exist' do
+        it 'renders the new view' do
+          get :new, category_id: @category
+          expect(response).to render_template :new
+        end
+      end
+
+      context 'when there are no categories' do
+        before do
+          Category.delete_all
+        end
+
+        after do
+          @category = create(:category)
+          subj_subcategory.category = @category
+          subj_subcategory.save
+        end
+
+        it 'shows error message' do
+          get :new, category_id: @category
+          expect(flash[:error]).to be_present
+          expect(response).to redirect_to menus_path
+        end
       end
     end
 
@@ -69,7 +89,7 @@ RSpec.describe Manager::SubcategoriesController, type: :controller do
 
         it 'show root path' do
           post :create, category_id: @category, subcategory: attributes_for(:subcategory)
-          expect(response).to redirect_to manager_category_path(id: @category)
+          expect(response).to redirect_to menus_path
         end
       end
       context 'when params are not valid' do

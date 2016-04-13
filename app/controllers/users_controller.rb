@@ -2,12 +2,10 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-
   end
 
   def show
     @user = User.find(params[:id])
-
   end
 
   def edit
@@ -30,7 +28,7 @@ class UsersController < ApplicationController
           redirect_to tables_path
         end
       elsif is_manager? && @user.update(user_params_manager_updating)
-          redirect_to @user
+        redirect_to @user
       else
         render 'edit'
       end

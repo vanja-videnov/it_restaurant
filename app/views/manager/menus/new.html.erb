@@ -14,11 +14,15 @@
         </div>
     <% end %>
     <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+    <p>
       <%= f.label :date %><br>
       <%= f.date_select :date %>
     </p>
     <p>
-      <%= f.submit  class: "btn btn-lg btn-primary"%>
+      <%= f.submit class: "btn btn-lg btn-primary" %>
     </p>
      
 <% end %>

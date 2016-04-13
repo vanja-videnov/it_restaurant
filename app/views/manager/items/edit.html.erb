@@ -1,4 +1,4 @@
-<%= form_for :item, url: manager_menu_item_path(menu_id:@item.menu_id, id: @item.id), method: :patch do |f| %>  
+<%= form_for :item, url: manager_menu_item_path(menu_id: @item.menu_id, id: @item.id), method: :patch do |f| %>  
     <% if @item.errors.any? %>   
         <div id="error_explanation">
                 <h2>
@@ -14,7 +14,7 @@
     <% end %>
     <p>
       <%= f.label :subcategory %><br>
-      <%= f.select :subcategory, Subcategory.all.collect {|u| [u.name, u.id]}, :selected => [@item.subcategory.name, @item.subcategory.id] %>
+      <%= f.select :subcategory, Subcategory.all.collect { |u| [u.name, u.id] }, :selected => [@item.subcategory.name, @item.subcategory.id] %>
     </p>
     <p>
       <%= f.label :name %><br>
@@ -29,7 +29,7 @@
       <%= f.text_field :price, type: 'number' %>
     </p>
     <p>
-      <%= f.submit class: "btn btn-lg btn-primary"%>
+      <%= f.submit class: "btn btn-lg btn-primary" %>
     </p>
      
 <% end %>

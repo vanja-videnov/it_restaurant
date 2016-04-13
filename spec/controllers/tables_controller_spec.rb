@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe TablesController, type: :controller do
   include SessionsHelper
-  subject(:subj_table) { Table.new(number: number) }
+  subject(:subj_table) { Table.new(number: number, sum: sum) }
   let(:number) { 3 }
+  let(:sum) { 1 }
 
   context 'valid ' do
     it { expect(subj_table).to be_valid }

@@ -1,11 +1,10 @@
-
-<%= form_for :subcategory, url: manager_category_subcategory_path(id: @subcategory.id, category_id:@subcategory.category), method: :patch do |f| %>  
+<%= form_for :subcategory, url: manager_category_subcategory_path(id: @subcategory.id, category_id: @subcategory.category), method: :patch do |f| %>  
     <p>
       <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, required: true %>
     </p>
     <p>
-      <%= f.submit  class: "btn btn-lg btn-primary" %>
+      <%= f.submit class: "btn btn-lg btn-primary" %>
     </p>
      
 <% end %>

@@ -2,10 +2,14 @@
 <%= form_for [:manager, @subcategory], url: manager_category_subcategories_path(category_id: @subcategory.category_id) do |f| %>  
     <p>
       <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, required: true %>
     </p>
     <p>
-      <%= f.submit  class: "btn btn-lg btn-primary"%>
+      <%= f.label :category_id %><br>
+      <%= f.select :category_id, Category.all.collect { |u| [u.name, u.id] }, required: true %>
+    </p>
+    <p>
+      <%= f.submit class: "btn btn-lg btn-primary" %>
     </p>
      
 <% end %>

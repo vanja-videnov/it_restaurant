@@ -1,6 +1,16 @@
-<% if @per_items %>
+<table class="table table-hover">
+  <tbody>
+  <tr style="border-top: hidden">
+    <td align="center"><%= link_to 'Daily report', manager_reports_daily_path, :title => 'per day' %></td>
+    <td align="center"><%= link_to 'Items statistics', manager_reports_items_path, :title => 'per items' %></td>
+    <td align="center"><%= link_to 'Tables statistics', manager_reports_tables_path, :title => 'per tables' %></td>
+    <td align="center"><%= link_to 'Category statistics', manager_reports_categories_path, :title => 'per category' %></td>
+  </tr>
+  </tbody>
+</table>
 
-    <div >
+<% if @per_items %>
+    <div>
       <b><u>Per items:</u></b><br/>
       <% @per_items.each do |report, count| %>
           <%= @all.find_by(item_id: report).item.name %>: <%= count %>
@@ -11,7 +21,7 @@
 <% end %>
 
 <% if @per_table %>
-    <div >
+    <div>
       <b><u>Per tables:</u></b><br/>
       <% @per_table.each do |report| %>
           Table:<%= report.table.number %>, <%= report.item.name %>
@@ -30,7 +40,7 @@
 
 
 <% if @per_category %>
-    <div >
+    <div>
       <b><u>Categories per table:</u></b>
       <br/>
       <% @per_category.each do |t, c| %>

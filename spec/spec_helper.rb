@@ -22,6 +22,7 @@ RSpec.configure do |config|
 
   SimpleCov.start
 
+  config.raise_errors_for_deprecations!
   config.include FactoryGirl::Syntax::Methods
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

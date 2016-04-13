@@ -26,9 +26,46 @@ RSpec.describe Manager::ItemsController, type: :controller do
   end
   describe 'GET #new' do
     context 'when is manager' do
-      it 'renders the new view' do
-        get :new, menu_id: @menu
-        expect(response).to render_template :new
+      context 'when there is subcategory and category' do
+        it 'renders the new view' do
+          get :new, menu_id: @menu
+          expect(response).to render_template :new
+        end
+      end
+      context 'when there is no subcategory' do
+        before do
+          Subcategory.delete_all
+        end
+
+        after do
+          @subcategory = create(:subcategory, category:@category)
+          subj_item.subcategory = @subcategory
+          subj_item.save
+        end
+
+        it 'shows error message' do
+          get :new, menu_id: @menu
+          expect(flash[:error]).to be_present
+          expect(response).to redirect_to menus_path
+        end
+      end
+      context 'when there is no category' do
+        before do
+          Category.delete_all
+        end
+
+        after do
+          @category = create(:category)
+          @subcategory.category = @category
+          subj_item.subcategory = @subcategory
+          subj_item.save
+        end
+
+        it 'shows error message' do
+          get :new, menu_id: @menu
+          expect(flash[:error]).to be_present
+          expect(response).to redirect_to menus_path
+        end
       end
     end
 
