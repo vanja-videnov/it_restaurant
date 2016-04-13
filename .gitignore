@@ -24,3 +24,4 @@
 /app/controllers/coverage/*
 /coverage/*.json
 /coverage/*.lock
+/coverage/*.html
