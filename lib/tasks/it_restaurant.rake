@@ -1,13 +1,13 @@
 namespace :it_restaurant do
   desc 'create manager'
   task create_manager: :environment do
-    manager = User.new(email: 'vanja@rbt.com', manager: true, name: 'Manager', telephone: '1234567890', password: '123456vv')
+    manager = User.new(email: 'vanja@test.com', manager: true, name: 'Manager', telephone: '1234567890', password: '123456vv')
     manager.save()
   end
 
   desc 'create waiter'
   task create_waiter: :environment do
-    waiter = User.new(email: 'sanja@rbt.com', manager: false, name: 'Waiter', telephone: '1234567890', password: '123456vv')
+    waiter = User.new(email: 'sanja@test.com', manager: false, name: 'Waiter', telephone: '1234567890', password: '123456vv')
     waiter.save()
   end
 
@@ -58,6 +58,14 @@ namespace :it_restaurant do
     else
       puts "****NOT VALID****"
     end
+  end
+
+  desc 'create tables'
+  task create_tables: :environment  do |task, args|
+    table = Table.new(number: 1)
+    table2 = Table.new(number: 2)
+    table.save()
+    table2.save()
   end
 
   desc 'create food and drink categories'

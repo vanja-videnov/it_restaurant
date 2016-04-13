@@ -20,8 +20,12 @@ Ruby restaurant ordering application for waiters and managers
 * rake it_restaurant:create_manager
 * rake it_restaurant:create_waiter
 * rake it_restaurant:create_basic_categories
+* rake it_restaurant:create_tables
+</br></br>
+&ensp;<i>With this tasks you have created manager user with username(vanja@test.com) and password(123456vv), waiter user with email(sanja@test.com) and password(123456vv), two tables and two basic categories(food and drink)</i>
 
-##### NOTE: Before using app you should use some of the specific rake tasks (if there is appropriate) or do next tasks from manager dashboard <br>
+##### NOTE: Before using this app you should use some of the specific rake tasks (if there is appropriate) or do next tasks<br>
+* Login as manager
 * Create new menu and subcategories;
 * Add new items
 
