@@ -26,27 +26,27 @@ RSpec.describe Manager::ReportsController, type: :controller do
         get :daily
         expect(response).to render_template :show
         expect(assigns(:reports)).to eq(Report.where(date: date))
-        expect(assigns(:per_category)).to eq(Report.where(date: date).group(:table_id, :category_id).order('table_id asc').count(:category_id, :distinct => true))
+        expect(assigns(:per_category)).to eq(Report.joins(:category).where(date: date).group(:table_id, :category_id).select('reports.*, count(category_id) as category_count'))
         expect(assigns(:per_table)).to eq(Report.where(date: date).group(:table_id, :item_id).order('table_id asc'))
-        expect(assigns(:item_per_table)).to eq(Report.where(date: date).group(:table_id).count(:item_id, :distinct => true))
-        expect(assigns(:per_items)).to eq(Report.where(date: date).group(:item_id).count(:item_id, :distinct => true))
+        expect(assigns(:item_per_table)).to eq(Report.where(date: date).group(:table_id).select('reports.*, count(table_id) as table_count'))
+        expect(assigns(:per_items)).to eq(Report.where(date: date).joins(:item).group('item_id').select('reports.*, count(item_id) as item_count'))
 
       end
 
       it 'shows per item report if is selected' do
         get :items
-        expect(assigns(:per_items)).to eq(Report.all.group(:item_id).count(:item_id, :distinct => true))
+        expect(assigns(:per_items)).to eq(Report.all.joins(:item).group('item_id').select('reports.*, count(item_id) as item_count'))
       end
 
       it 'shows per table report if is selected' do
         get :tables
-        expect(assigns(:item_per_table)).to eq(Report.all.group(:table_id).count(:item_id, :distinct => true))
+        expect(assigns(:item_per_table)).to eq(Report.all.group(:table_id).select('reports.*, count(table_id) as table_count'))
         expect(assigns(:per_table)).to eq(Report.all.group(:table_id, :item_id).order('table_id asc'))
       end
 
       it 'shows per category report if is selected' do
         get :categories
-        expect(assigns(:per_category)).to eq(Report.all.group(:table_id, :category_id).order('table_id asc').count(:category_id, :distinct => true))
+        expect(assigns(:per_category)).to eq(Report.all.joins(:category).group(:table_id, :category_id).select('reports.*, count(category_id) as category_count'))
       end
     end
 
