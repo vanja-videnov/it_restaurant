@@ -7,10 +7,10 @@ class Item < ActiveRecord::Base
   validates :price, numericality: {only_integer: true}
   validates :name, :price, :description, presence: true
 
-  def self.create_with_params(item_params, menu_id, subcategory)
+  def self.create_with_params(item_params, menu_id, subcategory_id)
     @item = Item.new(item_params)
     @item.menu_id = menu_id
-    @item.subcategory = Subcategory.find(subcategory)
+    @item.subcategory_id = subcategory_id
     @item.save
   end
 end

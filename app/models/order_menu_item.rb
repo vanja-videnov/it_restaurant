@@ -5,7 +5,7 @@ class OrderMenuItem < ActiveRecord::Base
   def update_existing
     increment!(:quantity, 1)
     self.order.table.increment!(:sum, self.item.price)
-    Report.create(date: Date.today, table_id: self.order.table.id, category_id: self.item.subcategory.category.id, subcategory_id: self.item.subcategory.id, item_id: self.item.id)
+    Report.create(date: Date.today, table_id: self.order.table_id, category_id: self.item.subcategory.category_id, subcategory_id: self.item.subcategory_id, item_id: self.item_id)
   end
 
   def delete_and_update(param)

@@ -4,7 +4,7 @@ class OrderMenuItemsController < ApplicationController
   def create
     @order_menu_item = OrderMenuItem.find_or_create_by(item_id: params[:item_id], order_id: params[:order_id])
     @order_menu_item.update_existing
-    redirect_to table_order_path(table_id: @order_menu_item.order.table, id: @order_menu_item.order.id)
+    redirect_to table_order_path(table_id: @order_menu_item.order.table_id, id: @order_menu_item.order_id)
   end
 
   def destroy

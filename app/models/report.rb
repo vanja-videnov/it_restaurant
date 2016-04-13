@@ -10,56 +10,35 @@ class Report < ActiveRecord::Base
   end
 
   def self.per_items(param)
-    # if param == 'daily'
-    #   reports = get_today_reports
-    #   @per_items = reports.group(:item_id).count(:item_id, :distinct => true)
-    # else
-    #   reports = Report.all
-    #   @per_items = reports.group(:item_id).count(:item_id, :distinct => true)
-    # end
-
-    reports = if param == 'daily'
-                get_today_reports
-              else
-                all
-              end
-    reports.group(:item_id).count(:item_id, :distinct => true)
+    reports = get_reports(param)
+    reports.joins(:item).group('item_id').select('reports.*, count(item_id) as item_count')
   end
 
   def self.per_table(param)
+    reports = get_reports(param)
+    reports.group(:table_id, :item_id).order('table_id asc')
+  end
+
+  def self.item_per_table(param)
+    reports = get_reports(param)
+    reports.group(:table_id).select('reports.*, count(table_id) as table_count')
+  end
+
+  def self.per_category(param)
+    reports = get_reports(param)
+    reports.joins(:category).group(:table_id, :category_id).select('reports.*, count(category_id) as category_count')
+  end
+
+  def self.get_reports(param)
     if param == 'daily'
-      reports = get_today_reports
-      @per_table = reports.group(:table_id, :item_id).order('table_id asc')
+      get_today_reports
     else
-      reports = Report.all
-      @per_table = reports.group(:table_id, :item_id).order('table_id asc')
+      all
     end
   end
-
-  def self.item_per_table(params)
-    if params == 'daily'
-      reports = get_today_reports
-      @item_per_table = reports.group(:table_id).count(:item_id, :distinct => true)
-    else
-      reports = Report.all
-      @item_per_table = reports.group(:table_id).count(:item_id, :distinct => true)
-    end
-  end
-
-  def self.per_category(params)
-    if params == 'daily'
-      reports = get_today_reports
-      @per_category = reports.group(:table_id, :category_id).order('table_id asc').count(:category_id, :distinct => true)
-    else
-      reports = Report.all
-      @per_category = reports.group(:table_id, :category_id).order('table_id asc').count(:category_id, :distinct => true)
-    end
-  end
-
-  private
 
   def self.get_today_reports
-    Report.where(date: Date.current)
+    where(date: Date.current)
   end
 
 end
