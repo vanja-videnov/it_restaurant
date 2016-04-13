@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe SessionsHelper, type: :helper do
-  include SessionsHelper
 
   before do
     @manager = create(:user_waiter,manager: true, email: 'sanjica@rbt.com')

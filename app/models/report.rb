@@ -5,8 +5,7 @@ class Report < ActiveRecord::Base
   belongs_to :item
 
   def self.destroy_if_exist(item_id, table_id)
-    report = Report.where(item_id: item_id, table_id: table_id).last
-    report.destroy if report
+    where(item_id: item_id, table_id: table_id).last.try(:destroy)
   end
 
   def self.per_items(param)

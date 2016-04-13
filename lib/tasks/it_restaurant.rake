@@ -12,8 +12,8 @@ namespace :it_restaurant do
   end
 
   desc 'create waiter with params'
-  task :create_waiter_with_params, [:arg1, :arg2] =>:environment  do |task, args|
-    waiter = User.new(email: args[:arg1], manager: false, name: 'Waiter', telephone: '1234567890', password: args[:arg2])
+  task :create_waiter_with_params, [:email, :password] =>:environment  do |task, args|
+    waiter = User.new(email: args[:email], manager: false, name: 'Waiter', telephone: '1234567890', password: args[:password])
 
     if waiter.valid?
       waiter.save()
@@ -28,8 +28,8 @@ namespace :it_restaurant do
   end
 
   desc 'give admin privilege'
-  task :set_admin, [:arg1] =>:environment  do |task, args|
-    waiter = User.find_by_email(args[:arg1])
+  task :set_admin, [:email] =>:environment  do |task, args|
+    waiter = User.find_by_email(args[:email])
     waiter.manager = true
 
     if waiter.valid?
@@ -45,8 +45,8 @@ namespace :it_restaurant do
   end
 
   desc 'create new menu with name and current date'
-  task :create_menu, [:arg1] =>:environment  do |task, args|
-    menu = Menu.new(name: args[:arg1], date: Date.current)
+  task :create_menu, [:name] =>:environment  do |task, args|
+    menu = Menu.new(name: args[:name], date: Date.current)
 
     if menu.valid?
       menu.save()
@@ -77,8 +77,8 @@ namespace :it_restaurant do
   end
 
   desc 'create category with name'
-  task :create_category, [:arg1] =>:environment  do |task, args|
-    category = Category.new(name: args[:arg1])
+  task :create_category, [:name] =>:environment  do |task, args|
+    category = Category.new(name: args[:name])
 
     if category.valid?
       category.save()

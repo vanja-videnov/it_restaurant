@@ -16,7 +16,7 @@ Ruby restaurant ordering application for waiters and managers
 * rake db:migrate
 * rails server
 
-### Create example users and categories
+### Basic setup
 * rake it_restaurant:create_manager
 * rake it_restaurant:create_waiter
 * rake it_restaurant:create_basic_categories
@@ -30,7 +30,10 @@ Ruby restaurant ordering application for waiters and managers
 * Add new items
 
 
-### Specific rake rasks
+### Specific rake tasks
+* <u>show all specific tasks:</u>
+
+  rake -T it_restaurant
 * <u>create waiter with email and password:</u>
 
  rake it_restaurant:create_waiter_with_params[email,password] </br></br>
