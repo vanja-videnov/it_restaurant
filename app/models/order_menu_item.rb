@@ -17,13 +17,13 @@ class OrderMenuItem < ActiveRecord::Base
     if self.quantity == 0
       if self.order.table.sum == 0
         self.order.table.pay
-        'empty'
+        0
       else
         self.destroy
-        'one'
+        1
       end
     else
-      'one'
+      1
     end
   end
 

@@ -12,7 +12,7 @@ class OrderMenuItemsController < ApplicationController
     @table = @order_menu_item.order.table
 
     ret = @order_menu_item.delete_and_update(params[:delete])
-    if ret == 'empty'
+    if ret == 0
       redirect_to tables_path
     else
       redirect_to table_path(@table)

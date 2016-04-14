@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
-      if user[:manager] == true
+      if user[:manager]
         redirect_to manager_index_path
       else
         redirect_to edit_user_path(id: user.id)
