@@ -1,3 +1,6 @@
+<div class="col-lg-1">
+
+</div>
 <%= form_for [:manager, @item], url: manager_menu_items_path(menu_id: @item.menu_id) do |f| %>  
     <% if @item.errors.any? %>   
         <div id="error_explanation">
@@ -29,9 +32,12 @@
       <%= f.text_field :price, type: 'number', required: true %>
     </p>
     <p>
+      <%= f.label :image %>
+      <%= f.file_field :image, type: 'file' %>
+    </p>
+    <p>
       <%= f.submit class: "btn btn-primary" %>
     </p>
-     
 <% end %>
  
 <%= link_to 'Back', edit_manager_menu_path(id: @item.menu_id) %>

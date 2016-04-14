@@ -41,6 +41,10 @@ class Manager::ItemsController < ManagerController
   def destroy
     @item = Item.find(params[:id])
     menu_id = @item.menu_id
+    name = @item.name
+
+    FileUtils.rm_rf('/uploads/item/#{name}') if @item.image.present?
+
     @item.destroy
     redirect_to edit_manager_menu_path(id: menu_id)
   end
@@ -48,7 +52,7 @@ class Manager::ItemsController < ManagerController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price)
+    params.require(:item).permit(:name, :description, :price, :image)
   end
 
 end
