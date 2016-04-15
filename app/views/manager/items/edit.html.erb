@@ -1,46 +1,47 @@
 <div class="row well">
-  <div class="col-sm-8 text-left">
-    <%= form_for :item, url: manager_menu_item_path(menu_id: @item.menu_id, id: @item.id), method: :patch, html: { multipart: true } do |f| %>  
-        <% if @item.errors.any? %>   
-            <div id="error_explanation">
-                    <h2>
-                      <%= pluralize(@item.errors.count, "error") %> prohibited
-                      this item from being saved:
-                    </h2>
-              <ul>        
-                <% @item.errors.full_messages.each do |msg| %>          
-                    <li><%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
-        <% end %>
-        <p>
+
+  <% if @item.errors.any? %>   
+      <div id="error_explanation">
+              <h2>
+                <%= pluralize(@item.errors.count, "error") %> prohibited
+                this item from being saved:
+              </h2>
+        <ul>        
+          <% @item.errors.full_messages.each do |msg| %>          
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+  <div class="col-sm-offset-1 col-sm-5 text-left">
+    <%= form_for :item, html: {class: 'form'}, url: manager_menu_item_path(menu_id: @item.menu_id, id: @item.id), method: :patch do |f| %>  
+        <div class="form-group">
           <%= f.label :subcategory %><br>
-          <%= f.select :subcategory, Subcategory.all.collect { |u| [u.name, u.id] }, :selected => [@item.subcategory.name, @item.subcategory.id] %>
-        </p>
-        <p>
+          <%= f.select :subcategory, @subcategories.collect { |u| [u.name, u.id] }, {:selected => [@item.subcategory.name, @item.subcategory.id]}, {class: 'form-control'}%>
+        </div>
+        <div class="form-group">
           <%= f.label :name %><br>
-          <%= f.text_field :name %>
-        </p>
-        <p>
+          <%= f.text_field :name , class: 'form-control'%>
+        </div>
+        <div class="form-group">
           <%= f.label :description %><br>
-          <%= f.text_area :description %>
-        </p>
-        <p>
+          <%= f.text_area :description , class: 'form-control'%>
+        </div>
+        <div class="form-group">
           <%= f.label :price %><br>
-          <%= f.text_field :price, type: 'number' %>
-        </p>
-        <p>
+          <%= f.text_field :price, type: 'number', class: 'form-control' %>
+        </div>
+        <div class="form-group">
           <%= f.label :image %>
           <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', class:'file_update' %>
-        </p>
-        <p>
-          <%= f.submit class: "btn btn-lg btn-primary" %>
-        </p>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: "btn btn-primary form-control" %>
+        </div>
          
     <% end %>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-4 col-sm-offset-2" style="margin-top: 10%">
     <%= image_tag @item.image.url, size: "200" %>
   </div>
 </div>
