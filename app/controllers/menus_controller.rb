@@ -5,6 +5,7 @@ class MenusController < ApplicationController
     @menus = Menu.all
     @subcategories = Subcategory.all
     @categories = Category.all
+    @items = Item.all
   end
 
   def show

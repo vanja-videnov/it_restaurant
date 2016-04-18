@@ -48,7 +48,7 @@ class Manager::ItemsController < ManagerController
     FileUtils.rm_rf('/uploads/item/#{name}') if @item.image.present?
 
     @item.destroy
-    redirect_to edit_manager_menu_path(id: menu_id)
+    redirect_to menus_path
   end
 
   private

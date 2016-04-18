@@ -1,57 +1,37 @@
+<br/>
 <div class="row ">
-  <div class="col-sm-12">
-    <div class="row well">
-      <div class="col-sm-4 text-center pagination-centered ">
-        <%= link_to image_tag('add-user.png', size: "200"), new_manager_user_path, :title => 'New user' %>
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        <% if @menu %>
-            <%= link_to image_tag('add-item.png', size: "200"), new_manager_menu_item_path(menu_id: @menu), :title => 'New item' %>
-        <% else %>
-            <%= image_tag('first.png', size: "200") %>
-        <% end %>
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        <%= link_to image_tag('new-menu.jpeg', size: "200"), new_manager_menu_path, :title => 'New menu' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-4 text-center pagination-centered ">
-        New user
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        New item
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        New menu
-      </div>
-    </div>
-
-    <div class="row well">
-      <div class="col-sm-4 text-center pagination-centered 1">
-        <%= link_to image_tag('icon-category.png', size: "200"), new_manager_category_path, :title => 'New category' %>
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        <%= link_to image_tag('add-table.png', size: "200"), new_table_path, :title => 'New table' %>
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        <%= link_to image_tag('exit.png', size: "200"), logout_path, method: :delete, :title => 'Log out' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-4 text-center pagination-centered ">
-        Add category
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        Add table
-      </div>
-      <div class="col-sm-4 text-center pagination-centered ">
-        Log out
-      </div>
-    </div>
-
-
+  <div class="col-sm-4 text-center pagination-centered background-white ">
+    <%= link_to image_tag('add-user.png', size: "200"), new_manager_user_path, :title => 'New user' %> <br/>
+    New user
+  </div>
+  <div class="col-sm-4 text-center pagination-centered ">
+    <% if @menu %>
+        <%= link_to image_tag('add-item.png', size: "200"), new_manager_menu_item_path(menu_id: @menu), :title => 'New item' %>
+    <% else %>
+        <%= image_tag('first.png', size: "200") %>
+    <% end %><br/>
+    New item
+  </div>
+  <div class="col-sm-4 text-center pagination-centered background-white ">
+    <%= link_to image_tag('new-menu.jpeg', size: "200"), new_manager_menu_path, :title => 'New menu' %><br/>
+    New menu
   </div>
 </div>
-<br/>
+<br/><br/>
+<div class="row ">
+  <div class="col-sm-4 text-center pagination-centered ">
+    <%= link_to image_tag('icon-category.png', size: "200"), new_manager_category_path, :title => 'New category' %><br/>
+    New category
+  </div>
+  <div class="col-sm-4 text-center pagination-centered background-white table-bordered">
+    <%= link_to image_tag('add-table.png', size: "200"), new_table_path, :title => 'New table' %><br/>
+    New table
+  </div>
+  <div class="col-sm-4 text-center pagination-centered ">
+    <%= link_to image_tag('exit.png', size: "200"), logout_path, method: :delete, :title => 'Log out' %>
+    <br/>
+    Log out
+  </div>
+</div>
+<br/><br/><br/>
 * Here you can add new item only in last created menu!

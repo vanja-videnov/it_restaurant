@@ -1,55 +1,62 @@
-<%= form_for :menu, url: manager_menu_path(@menu), method: :patch do |f| %>  
-    <% if @menu.errors.any? %>   
-        <div id="error_explanation">
-                <h2>
-                  <%= pluralize(@menu.errors.count, "error") %> prohibited
-                  this menu from being saved:
-                </h2>
-          <ul>        
-            <% @menu.errors.full_messages.each do |msg| %>          
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-    <p>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-      <%= f.label :date %><br>
-      <%= f.date_select :date %>
-    </p>
-    <br/>
-    <% if @menu.items %>
-        <p><b>Items:</b></p>
-        <table class="table table-hover">
-          <tr>
-            <td><b><i>Name</i></b></td>
-            <td><b><i>Description</i></b></td>
-            <td><b><i>Price</i></b></td>
-            <td><b><i>Options</i></b></td>
-          </tr>
-          <% @menu.items.each do |item| %>
-              <tr>
-                <td><%= item.name %> </td>
-                <td><%= item.description %></td>
-                <td><%= item.price %></td>
-                <td><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id), class: "btn btn-primary" %>&nbsp;&nbsp; <%= link_to 'Delete', manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete, class: "btn btn-primary" %></td>
-              </tr>
-          <% end %>
-        </table>
-    <% end %>
-
-    <br/>
-    <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu) %>
-    <br/><br/>
-    <p>
-      <%= f.submit class: "btn btn-lg btn-primary" %>
-    </p>
-     
+<% if @menu.errors.any? %>   
+    <div id="error_explanation">
+            <h2>
+              <%= pluralize(@menu.errors.count, "error") %> prohibited
+              this menu from being saved:
+            </h2>
+      <ul>        
+        <% @menu.errors.full_messages.each do |msg| %>          
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
 <% end %>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <%= form_for :menu, html: {class: 'form'}, url: manager_menu_path(@menu), method: :patch do |f| %>  
+        <div class="form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :date %><br>
+          <%= f.text_field :date, 'data-provide' => 'datepicker', 'data-date-format' => "yyyy-mm-dd", class: 'form-control' %>
+        </div>
+        <br/>
+        </div>
+        </div>
+        <% if @menu.items %>
+            <p><b>Items:</b></p>
+            <div class="row">
+              <div class="col-sm-3">Name</div>
+              <div class="col-sm-2 col-sm-offset-1">Description</div>
+              <div class="col-sm-2 col-sm-offset-1">Price</div>
+              <div class="col-sm-3"></div>
+              <br/><br/><br/>
+            </div>
 
-<br/><br/>
-<%= link_to '<- Back to menu', menu_path(id: @menu) %>
- 
+              <% @menu.items.each do |item| %>
+                <div class="row">
+                  <div class="col-sm-3 background-white"><%= item.name %></div>
+                  <div class="col-sm-2 col-sm-offset-1 background-white"><%= item.description %></div>
+                  <div class="col-sm-2 col-sm-offset-1 background-white"><%= item.price %></div>
+                  <div class="col-sm-2 col-sm-offset-1"><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id), class: "btn btn-primary" %>&nbsp;&nbsp; <%= link_to 'Delete', manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete, class: "btn btn-primary" %></div>
+                </div>
+                <hr/>
+              <% end %>
+        <% end %>
+
+        <br/>
+
+        <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu) %>
+        <br/><br/>
+
+        <p>
+          <%= f.submit class: "btn btn-lg btn-primary" %>
+        </p>
+         
+    <% end %>
+
+    <br/><br/>
+    <%= link_to '<- Back to menu', menu_path(id: @menu) %>
+     

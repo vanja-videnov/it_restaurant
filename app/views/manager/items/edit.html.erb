@@ -1,4 +1,4 @@
-<div class="row well">
+<div class="row ">
 
   <% if @item.errors.any? %>   
       <div id="error_explanation">
@@ -41,9 +41,9 @@
          
     <% end %>
   </div>
-  <div class="col-sm-4 col-sm-offset-2" style="margin-top: 10%">
+  <div class="col-sm-3 col-sm-offset-2 background-white text-center" style="margin-top: 10%">
     <%= image_tag @item.image.url, size: "200" %>
   </div>
 </div>
 
-<%= link_to '<- Back to edit menu', edit_manager_menu_path(id: @item.menu_id) %>
+<%= link_to '<- Back to menus', menus_path %>

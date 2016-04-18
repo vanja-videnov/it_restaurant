@@ -1,44 +1,40 @@
-<table>
-  <% if @table %>
-      <tr>
-        <td>
-          <% if @table.payment %>
-              <%= image_tag('table.png', size: "120") %>
-          <% else %>
-              <%= image_tag('table-red.png', size: "120") %>
-          <% end %>
-          &nbsp; &nbsp;</td>
-        <td>
-          <table>
-            <tr>
-              <td>
-                Number:<%= @table.number %> &nbsp; &nbsp;
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Sum:<%= @table.sum %>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Payment:<%= @table.payment %> &nbsp; &nbsp;
-              </td>
-            </tr>
-          </table>
-        </td>
-        <% if is_manager? %>
-            <td>
-              <%= link_to 'DELETE TABLE', table_path(id: @table), method: :delete, class: "btn btn-lg btn-primary" %>
-            </td>
-        <% else %>
-            <td>
-              <b><%= link_to 'PAY', table_path(id: @table), method: :patch, class: "btn btn-lg btn-primary" %></b>
-            </td>
-        <% end %>
-
-  <% end %>
-</table>
+<% if @table %>
+    <div class="row">
+      <br/><br/>
+      <% if @table.payment %>
+          <div class="col-sm-3 text-center pagination-centered background-white">
+            <%= image_tag('table.png', width: '100%') %>
+          </div>
+      <% else %>
+          <div class="col-sm-3 text-center pagination-centered">
+            <%= image_tag('table-red.png', width: '100%') %>
+          </div>
+      <% end %>
+      <div class="col-sm-6 text-center pagination-centered">
+        <div class="row">
+          <div class="col-sm-12 pagination-centered">Number:<%= @table.number %></div>
+          <br/><br/>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 pagination-centered">Sum:<%= @table.sum %></div>
+          <br/><br/>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 pagination-centered">Payment:<%= @table.payment %></div>
+          <br/><br/><br/><br/><br/><br/>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text-center pagination-centered ">
+            <% if is_manager? %>
+                <%= link_to 'DELETE TABLE', table_path(id: @table), method: :delete, class: "btn btn-lg btn-primary" %>
+            <% else %>
+                <b><%= link_to 'PAY', table_path(id: @table), method: :patch, class: "btn btn-lg btn-primary" %></b>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
 <br/>
 <b><%= link_to 'ORDER', new_table_order_path(table_id: @table), class: "btn  btn-primary" unless is_manager? %></b>
 <br/>

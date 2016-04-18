@@ -1,33 +1,33 @@
 <% if @category %>
-    <table class="table ">
-      <tr style="border-bottom: hidden;border-top: hidden">
-        <td><b>Name:</b>&nbsp;<%= @category.name %>&nbsp;&nbsp;&nbsp;&nbsp;
-          <%= link_to 'Edit', edit_manager_category_path(id: @category.id), class: "btn btn-primary" %>&nbsp;&nbsp;
-          <%= link_to 'Delete', manager_category_path(id: @category.id), method: :delete, class: "btn btn-primary" %>&nbsp;&nbsp;
-          <%= link_to 'New subcategory', new_manager_category_subcategory_path(category_id: @category), class: "btn btn-primary" %>
-        </td>
-      </tr>
-    </table>
-    <table class="table table-hover">
-      <% if @category.subcategories.present? %>
-          <tbody>
-          <tr style="border-top: hidden">
-            <th>
-              <b><i>Subcategories:</i></b> &nbsp;&nbsp;
-            </th>
-          </tr>
-          <% @category.subcategories.each do |u| %>
-              <tr style="text-align: left">
-                <td>*<%= u.name %>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id: @category) %>
-                  &nbsp;&nbsp;
-                  <%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete, class: "btn btn-primary" %>
-                </td>
-              </tr>
-          <% end %>
-          </tbody>
-      <% end %>
-    </table>
+    <div class="row"><br/>
+
+      <div class="col-sm-3">
+        <b>Name:</b>&nbsp;<%= @category.name %>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to 'Edit', edit_manager_category_path(id: @category.id), class: "btn btn-primary" %>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to 'Delete', manager_category_path(id: @category.id), method: :delete, class: "btn btn-primary" %>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to 'New subcategory', new_manager_category_subcategory_path(category_id: @category), class: "btn btn-primary" %>
+      </div>
+    </div>
+    <% if @category.subcategories.present? %>
+        <div class="row">
+          <br/><br/>
+          <b><i>Subcategories:</i></b><br/><br/><br/>
+        </div>
+        <% @category.subcategories.each do |u| %>
+            <div class="row">
+              <div class="col-sm-2 background-white">*<%= u.name %></div>
+              <div class="col-sm-2 col-sm-offset-2"><%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id: @category), class: "btn btn-primary" %></div>
+              <div class="col-sm-4"><%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete, class: "btn btn-primary" %></div>
+            </div>
+            <hr/>
+        <% end %>
+    <% end %>
 
 <% end %>
 <br/>

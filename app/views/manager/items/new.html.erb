@@ -1,4 +1,4 @@
-<div class="row well">
+<div class="row ">
   <div class="col-sm-4 col-sm-offset-4">
 
     <div class="alert alert-error" role="alert">
@@ -38,7 +38,7 @@
 
         <div class="form-group">
           <%= f.label :image %>
-          <%= f.file_field :image, type: 'file' %>
+          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', class:'file_update' %>
         </div>
 
         <div class="form-group">
@@ -50,4 +50,4 @@
 </div>
 
  
-<%= link_to 'Back', edit_manager_menu_path(id: @item.menu_id) %>
+<%= link_to 'Back', manager_index_path %>

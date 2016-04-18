@@ -34,6 +34,10 @@ gem 'carrierwave', '~> 0.9'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+
+gem 'momentjs-rails'
+gem 'bootstrap-datepicker-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

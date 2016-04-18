@@ -20,6 +20,7 @@ class TablesController < ApplicationController
     if @table.save
       redirect_to tables_path
     else
+      @tables = Table.all
       render 'new'
     end
   end
