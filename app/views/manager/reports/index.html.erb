@@ -1,20 +1,22 @@
-<table class="table table-hover">
-  <thead></thead>
-  <tbody>
-  <tr style="border-bottom: hidden">
-    <td align="center"><%= link_to image_tag('report-date.jpeg', size: "200"), manager_reports_daily_path, :title => 'per day' %>
-    <td align="center"><%= link_to image_tag('per_items.jpg', size: "200"), manager_reports_items_path, :title => 'per items' %></td>
-    <td align="center"><%= link_to image_tag('report-tables.png', size: "200"), manager_reports_tables_path, :title => 'per table' %></td>
-    <td align="center"><%= link_to image_tag('per-category.jpg', size: "200"), manager_reports_categories_path, :title => 'per category' %></td>
-  </tr>
-  <tr>
-    <td align="center">Daily report</td>
-    <td align="center">Items statistics</td>
-    <td align="center">Tables statistics</td>
-    <td align="center">Category statistics</td>
-  </tr>
-  </tbody>
-</table>
+<div class="row text-center ">
+  <br/><br/>
+  <div class="col-sm-2 ">
+    <%= link_to image_tag('report date.gif', width: '100%'), manager_reports_daily_path, :title => 'per day' %> <br/>
+    Daily report
+  </div>
+  <div class="col-sm-2 col-sm-offset-1">
+    <%= link_to image_tag('report-item.gif', width: '100%'), manager_reports_items_path, :title => 'per items' %>  <br/>
+    Items statistics
+  </div>
+  <div class="col-sm-2 col-sm-offset-1 ">
+    <%= link_to image_tag('report-tables.png', width: '100%'), manager_reports_tables_path, :title => 'per table' %> <br/>
+    Tables statistics
+  </div>
+  <div class="col-sm-2 col-sm-offset-1 ">
+    <%= link_to image_tag('report-category.gif', width: '100%'), manager_reports_categories_path, :title => 'per category' %> <br/>
+    Category statistics
+  </div>
+</div>
 
 
 

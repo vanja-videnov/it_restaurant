@@ -4,6 +4,8 @@ class Item < ActiveRecord::Base
   belongs_to :subcategory
   belongs_to :menu
 
+  mount_uploader :image, ImageUploader # Tells rails to use this uploader for this model.
+
   validates :price, numericality: {only_integer: true}
   validates :name, :price, :description, presence: true
 

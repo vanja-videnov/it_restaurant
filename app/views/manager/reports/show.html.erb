@@ -8,47 +8,50 @@
   </tr>
   </tbody>
 </table>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <% if @per_items %>
+        <div>
+          <b><u>Per items:</u></b><br/>
+          <% @per_items.each do |report| %>
+              <%= report.item.name %>
+              <%= report.item_count %>
+              <br/>
+          <% end %>
+          <hr/>
+        </div>
+    <% end %>
 
-<% if @per_items %>
-    <div>
-      <b><u>Per items:</u></b><br/>
-      <% @per_items.each do |report| %>
-          <%= report.item.name%>
-          <%= report.item_count%>
+    <% if @per_table %>
+        <div>
+          <b><u>Per tables:</u></b><br/>
+          <% @per_table.each do |report| %>
+              Table:<%= report.table.number %>,
+              <%= report.item.name %>
+              <br/>
+          <% end %>
+          <b>Number of items per table:</b>
           <br/>
-      <% end %>
-      <br/>
-    </div>
-<% end %>
-
-<% if @per_table %>
-    <div>
-      <b><u>Per tables:</u></b><br/>
-      <% @per_table.each do |report| %>
-          Table:<%= report.table.number %>,
-          <%= report.item.name %>
-          <br/>
-      <% end %>
-      <b>Number of items per table:</b>
-      <br/>
-      <% @item_per_table.each do |report| %>
-          Table:<%= report.table.number %> /
-          <%= report.table_count %> item(s)
-          <br/>
-      <% end %>
-      <hr/>
-    </div>
-<% end %>
+          <% @item_per_table.each do |report| %>
+              Table:<%= report.table.number %> /
+              <%= report.table_count %> item(s)
+              <br/>
+          <% end %>
+          <hr/>
+        </div>
+    <% end %>
 
 
-<% if @per_category %>
-    <div>
-      <b><u>Categories per table:</u></b>
-      <br/>
-      <% @per_category.each do |t| %>
-          Table:<%= t.table.number %> / Category:<%=t.category.name%> ->
-          <%= t.category_count %> item(s)
+    <% if @per_category %>
+        <div>
+          <b><u>Categories per table:</u></b>
           <br/>
-      <% end %>
-    </div>
-<% end %>
+          <% @per_category.each do |t| %>
+              Table:<%= t.table.number %> / Category:<%= t.category.name %> ->
+              <%= t.category_count %> item(s)
+              <br/>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>

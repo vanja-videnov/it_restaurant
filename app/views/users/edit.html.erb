@@ -1,44 +1,48 @@
-<%= form_for :user, url: user_path(@user), method: :patch do |f| %>  
-    <% if @user.errors.any? %>   
-        <div id="error_explanation">
-                <h2>
-                  <%= pluralize(@user.errors.count, "error") %> prohibited
-                  this user from being saved:
-                </h2>
-          <ul>        
-            <% @user.errors.full_messages.each do |msg| %>          
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
+<div class="row">
+  <% if @user.errors.any? %>   
+      <div id="error_explanation">
+              <h2>
+                <%= pluralize(@user.errors.count, "error") %> prohibited
+                this user from being saved:
+              </h2>
+        <ul>        
+          <% @user.errors.full_messages.each do |msg| %>          
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+  <div class="col-sm-4 col-sm-offset-4">
+    <%= form_for :user, html: {class: 'form'}, url: user_path(@user), method: :patch do |f| %>  
+        <div class="form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control' %>
         </div>
+        <div class="form-group">
+          <%= f.label :email %><br>
+          <%= f.text_field :email, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :telephone %><br>
+          <%= f.text_field :telephone, class: 'form-control' %>
+        </div>
+        <% if @user.id == current_user.id %>
+            <div class="form-group">
+              <%= f.label :password %><br>
+              <%= f.password_field :password, required: true, class: 'form-control' %>
+            </div>
+        <% end %>
+        <% if is_manager? %>
+            <div class="form-group">
+              <%= f.label :manager %><br>
+              <%= f.check_box :manager %>
+            </div>
+        <% end %>
+        <div class="form-group">
+          <%= f.submit class: "btn btn-primary form-control" %>
+        </div>
+         
     <% end %>
-    <p>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-      <%= f.label :email %><br>
-      <%= f.text_field :email %>
-    </p>
-    <p>
-      <%= f.label :telephone %><br>
-      <%= f.text_field :telephone %>
-    </p>
-    <% if @user.id == current_user.id %>
-        <p>
-          <%= f.label :password %><br>
-          <%= f.password_field :password, required: true %>
-        </p>
-    <% end %>
-    <% if is_manager? %>
-        <p>
-          <%= f.label :manager %><br>
-          <%= f.check_box :manager %>
-        </p>
-    <% end %>
-    <p>
-      <%= f.submit class: "btn btn-lg btn-primary" %>
-    </p>
-     
-<% end %>
+  </div>
+</div>
  

@@ -1,25 +1,35 @@
-<table class="table table-hover">
-  <tbody>
-  <tr style="border-top: hidden">
-    <td><i><b>Name</b></i></td>
-    <td><i><b>Email</b></i></td>
-    <td><i><b>Telephone</b></i></td>
-  </tr>
-  <% if @user %>
-      <tr>
-        <td><%= @user.name %></td>
-        <td><%= @user.email %></td>
-        <td><%= @user.telephone %> </td>
-      </tr>
-      <% if logged_in? && is_manager? %>
-          <tr>
-            <td colspan="3" align="center">
-              <%= link_to 'Edit', edit_user_path(id: @user.id), class: "btn btn-lg btn-primary" %>
-              &nbsp;&nbsp;&nbsp; &nbsp;
-              <%= link_to 'Delete', manager_user_path(id: @user.id), method: :delete, class: "btn btn-lg btn-primary" %>
-            </td>
-          </tr>
-      <% end %>
-  <% end %>
-  </tbody>
-</table>
+<div class="row text-center ">
+  <br/><br/>
+
+  <div class="col-sm-3">
+    <i><b>Name</b></i>
+  </div>
+  <div class="col-sm-3 col-sm-offset-1">
+    <i><b>Email</b></i>
+  </div>
+  <div class="col-sm-5">
+    <i><b>Telephone</b></i>
+  </div>
+  <br/><br/>
+</div>
+<div class="row text-center form-control">
+  <div class="col-sm-3 ">
+    <%= @user.name %>
+  </div>
+  <div class="col-sm-3 col-sm-offset-1">
+    <%= @user.email %>
+  </div>
+  <div class="col-sm-5 ">
+    <%= @user.telephone %>
+  </div>
+</div>
+
+<% if logged_in? && is_manager? %>
+    <div class="row text-center">
+      <br/>
+      <div class="col-sm-5 col-sm-offset-3 ">
+        <%= link_to 'Edit', edit_user_path(id: @user.id), class: "btn btn-lg btn-primary" %> &nbsp; &nbsp;&nbsp; &nbsp;
+        <%= link_to 'Delete', manager_user_path(id: @user.id), method: :delete, class: "btn btn-lg btn-primary" %>
+      </div>
+    </div>
+<% end %>

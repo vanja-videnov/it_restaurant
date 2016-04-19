@@ -2,68 +2,77 @@
     <p class='error'><%= h flash[:error] %></p>
 <% end -%>
 <% if is_manager? %>
-    <table class="table table-hover">
-      <tbody>
-      <tr>
-        <td>
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <td><i><b>Menu list:</b></i></td>
-              <td><i><b><%= link_to 'New', new_manager_menu_path %></b></i></td>
-            </tr>
-            </thead>
-            <% if @menus %>
-                <tbody>
-                <% @menus.each do |u| %>
-                    <tr>
-                      <td><%= u.name if u.name.present? %>* <%= u.date %>&nbsp;&nbsp;
-                        <%= link_to 'Show', menu_path(id: u.id) %></td>
-                      <td>
-                        <%= link_to 'Add item', new_manager_menu_item_path(menu_id: u.id) %>
-                      </td>
-                    </tr>
-                <% end %>
-                </tbody>
+    <div class="row">
+      <div class="col-sm-5  background-white ">
+          <div class="row background">
+            <br/>
+            <div class="col-sm-9 "><i><b>Menu list:</b></i></div>
+              <div class="col-sm-3 "><i><b><%= link_to 'New', new_manager_menu_path, class: 'btn btn-primary' %></b></i></div>
+            <br/><br/><br/>
+          </div>
+          <% if @menus %>
+              <% @menus.each do |u| %>
+                  <div class="row hover-div">
+                    <br/>
+                    <div class="col-sm-9 "><%= u.name if u.name.present? %>* <%= u.date %>&nbsp;&nbsp;
+                      <%= link_to 'Show', menu_path(id: u.id) %></div>
+                    <div class="col-sm-3 ">
+                      <%= link_to 'Add item', new_manager_menu_item_path(menu_id: u.id) %>
+                    </div>
+                  </div>
+              <% end %>
+          <% end %>
+      </div>
+      <div class="col-sm-6 col-sm-offset-1  background-white">
+          <div class="row background">
+            <br/>
+            <div class="col-sm-5 "><i><b>Categories:</b></i></div>
+            <div class="col-sm-6 col-sm-offset-1"><i><b><%= link_to 'New', new_manager_category_path , class: 'btn btn-primary'%></b></i></div>
+            <br/><br/><br/>
+         </div>
+          <% if @categories %>
+              <% @categories.each do |u| %>
+                  <div class="row hover-div"><br/>
+                    <div class="col-sm-5 ">*<%= u.name %> &nbsp;&nbsp; <%= link_to 'Show', manager_category_path(id: u.id) %></div>
+                    <div class="col-sm-6 col-sm-offset-1 ">
+                      <%= link_to 'Add subcategory', new_manager_category_subcategory_path(category_id: u.id) %>
+                      &nbsp;&nbsp;
+                      <%= link_to 'Delete', manager_category_path(id: u.id), method: :delete %>
+                    </div>
+                  </div>
+              <% end %>
+          <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <br/><br/>
+      <div class="col-sm-5 col-sm-offset-3 background-white">
+        <div class="row background">
+          <br/>
+          <div class="col-sm-3 "><i><b>Items:</b></i></div>
+          <br/><br/>
+        </div>
+        <% if @items %>
+            <% @items.each do |u| %>
+                <div class="row hover-div"><br/>
+                  <div class="col-sm-9 ">*<%= u.name %> &nbsp;&nbsp; <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: u.menu_id, id: u)%></div>
+                  <div class="col-sm-3 ">
+                    <%= link_to 'Delete', manager_menu_item_path(menu_id: u.menu_id, id: u), method: :delete %>
+                  </div>
+                </div>
             <% end %>
-          </table>
-        </td>
-        <td>
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <td><i><b>Categories:</b></i></td>
-              <td><i><b><%= link_to 'New', new_manager_category_path %></b></i></td>
-            </tr>
-            </thead>
-            <% if @categories %>
-                <tbody>
-                <% @categories.each do |u| %>
-                    <tr>
-                      <td>*<%= u.name %> &nbsp;&nbsp; <%= link_to 'Show', manager_category_path(id: u.id) %></td>
-                      <td>
-                        <%= link_to 'Add subcategory', new_manager_category_subcategory_path(category_id: u.id) %>
-                        &nbsp;&nbsp;
-                        <%= link_to 'Delete', manager_category_path(id: u.id), method: :delete %>
-                      </td>
-                    </tr>
-                <% end %>
-                </tbody>
-            <% end %>
-          </table>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        <% end %>
+      </div>
+    </div>
 
 
 <% else %>
     <% if @categories %>
-        <table width="100%" class="table table-hover">
+        <table width="100%" class="table">
           <thead>
           <tr>
             <% @categories.each do |o| %>
-                <th><%= o.name %></th>
+                <th><%= o.name%></th>
             <% end %>
           </tr>
           </thead>
@@ -75,8 +84,8 @@
                       <% if s.items.count>0 %>
                           <table class="table table-hover">
                             <thead>
-                            <tr>
-                              <th><i><%= s.name if s.items.count>0 %></i></th>
+                            <tr  class="background">
+                              <th><i><%= s.name %></i></th>
                             </tr>
                             </thead>
                             <tbody>

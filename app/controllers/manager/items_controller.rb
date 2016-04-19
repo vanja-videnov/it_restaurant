@@ -3,6 +3,7 @@ class Manager::ItemsController < ManagerController
   def new
     menu = params[:menu_id]
     if Subcategory.exists? && Category.exists?
+      @subcategories = Subcategory.all
       @item = Item.new
       @item.menu_id = menu
     elsif !Category.exists?
@@ -24,6 +25,7 @@ class Manager::ItemsController < ManagerController
   end
 
   def edit
+    @subcategories = Subcategory.all
     @item = Item.find(params[:id])
     render 'edit'
   end
@@ -34,21 +36,25 @@ class Manager::ItemsController < ManagerController
     if @item.update(item_params)
       redirect_to edit_manager_menu_path(id: @item.menu_id)
     else
-      render 'edit'
+      redirect_to action: :edit
     end
   end
 
   def destroy
     @item = Item.find(params[:id])
     menu_id = @item.menu_id
+    name = @item.name
+
+    FileUtils.rm_rf('/uploads/item/#{name}') if @item.image.present?
+
     @item.destroy
-    redirect_to edit_manager_menu_path(id: menu_id)
+    redirect_to menus_path
   end
 
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price)
+    params.require(:item).permit(:name, :description, :price, :image)
   end
 
 end

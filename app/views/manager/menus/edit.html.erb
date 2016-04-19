@@ -1,53 +1,61 @@
-<%= form_for :menu, url: manager_menu_path(@menu), method: :patch do |f| %>  
-    <% if @menu.errors.any? %>   
-        <div id="error_explanation">
-                <h2>
-                  <%= pluralize(@menu.errors.count, "error") %> prohibited
-                  this menu from being saved:
-                </h2>
-          <ul>        
-            <% @menu.errors.full_messages.each do |msg| %>          
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-    <p>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-      <%= f.label :date %><br>
-      <%= f.date_select :date %>
-    </p>
-    <br/>
-    <% if @menu.items %>
-        <p><b>Items:</b></p>
-        <table class="table table-hover">
-          <tr>
-            <td><b><i>Name</i></b></td>
-            <td><b><i>Description</i></b></td>
-            <td><b><i>Price</i></b></td>
-            <td><b><i>Options</i></b></td>
-          </tr>
-          <% @menu.items.each do |item| %>
-              <tr>
-                <td><%= item.name %> </td>
-                <td><%= item.description %></td>
-                <td><%= item.price %></td>
-                <td><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id), class: "btn btn-primary" %>&nbsp;&nbsp; <%= link_to 'Delete', manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete, class: "btn btn-primary" %></td>
-              </tr>
-          <% end %>
-        </table>
-    <% end %>
+<% if @menu.errors.any? %>   
+    <div id="error_explanation">
+            <h2>
+              <%= pluralize(@menu.errors.count, "error") %> prohibited
+              this menu from being saved:
+            </h2>
+      <ul>        
+        <% @menu.errors.full_messages.each do |msg| %>          
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+<%= form_for :menu, html: {class: 'form'}, url: manager_menu_path(@menu), method: :patch do |f| %>  
 
-    <br/>
-    <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu) %>
-    <br/><br/>
-    <p>
-      <%= f.submit class: "btn btn-lg btn-primary" %>
-    </p>
-     
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4">
+        <div class="form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :date %><br>
+          <%= f.text_field :date, 'data-provide' => 'datepicker', 'data-date-format' => "yyyy-mm-dd", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit class: "btn form-control btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <br/> 
+<% end %>
+<% if @menu.items %>
+    <div class="row text-right">
+      <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu), class: 'btn btn-primary' %>
+    </div>
+    <div class="row text-center">
+      <div class="col-sm-2">Name</div>
+      <div class="col-sm-4 col-sm-offset-1">Description</div>
+      <div class="col-sm-1 col-sm-offset-1">Price</div>
+      <div class="col-sm-3"></div>
+      <br/><br/>
+    </div>
+    <div class="row text-center background-white">
+      <div class="col-sm-12">
+        <% @menu.items.each do |item| %>
+            <div class="row hover-div">
+              <br/>
+
+              <div class="col-sm-2"><%= item.name %></div>
+              <div class="col-sm-4 col-sm-offset-1"><%= item.description %></div>
+              <div class="col-sm-1 col-sm-offset-1"><%= item.price %></div>
+              <div class="col-sm-2 col-sm-offset-1"><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) %>&nbsp;&nbsp; <%= link_to 'Delete', manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete%></div>
+            </div>
+        <% end %>
+      </div>
+    </div>
 <% end %>
 
 <br/><br/>

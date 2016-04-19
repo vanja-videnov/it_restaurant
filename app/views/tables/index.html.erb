@@ -1,22 +1,28 @@
-<table width="100%">
-  <tr>
-    <td colspan="4"><%= link_to 'Add table', new_table_path, class: "btn btn-primary" if current_user.manager? %></td>
-  </tr>
-  <% if @tables %>
-      <% @tables.each_slice(4) do |slice| %>
-          <tr>
-            <% slice.each do |u| %>
-                <td align="center"><%= u.number %> &nbsp;&nbsp;
-                  <% if u.payment %>
-                      <%= link_to image_tag('table.png', size: "200"), table_path(id: u.id), :title => u.sum %>
-                  <% else %>
-                      <%= link_to image_tag('table-red.png', size: "200"), table_path(id: u.id), :title => u.sum %>
-                  <% end %>
-                </td>
-            <% end %>
-          </tr>
-      <% end %>
-  <% end %>
+<div class="row ">
+  <br/>
+  <div class="col-sm-12 text-center pagination-centered ">
+    <%= link_to 'Add table', new_table_path, class: "btn btn-primary " if current_user.manager? %>
+  </div>
+  <br/> <br/> <br/>
+</div>
 
-</table>
-<br/>
+<% if @tables %>
+    <% @tables.each_slice(4) do |slice| %>
+        <div class="row ">
+          <% slice.each do |u| %>
+                <% if u.payment %>
+                  <div class="col-sm-2 col-sm-offset-1 text-center pagination-centered background-white"><%= u.number %> &nbsp;&nbsp;
+                    <%= link_to image_tag('table.png', width: '100%'), table_path(id: u.id), :title => u.sum %>
+                  </div>
+                <% else %>
+                  <div class="col-sm-2 col-sm-offset-1 text-center pagination-centered background-white"><%= u.number %> &nbsp;&nbsp;
+                    <%= link_to image_tag('table-red.png', width: '100%'), table_path(id: u.id), :title => u.sum %>
+                  </div>
+                <% end %>
+          <% end %>
+        </div>
+
+        <br/>
+        <br/>
+    <% end %>
+<% end %>
