@@ -254,7 +254,7 @@ RSpec.describe Manager::ItemsController, type: :controller do
         it 'renders edit item page' do
           patch :update, id: subj_item, menu_id: @menu, item: attributes_for(:item, name: '', subcategory: @subcategory)
           subj_item.reload
-          expect(response).to render_template :edit
+          expect(response).to redirect_to action: :edit
         end
       end
     end
@@ -311,7 +311,7 @@ RSpec.describe Manager::ItemsController, type: :controller do
 
       it 'expect to render index page' do
         delete :destroy,menu_id: @menu, id: subj_item
-        expect(response). to redirect_to edit_manager_menu_path(id: @menu)
+        expect(response). to redirect_to menus_path
       end
     end
     context 'when is not manager' do
