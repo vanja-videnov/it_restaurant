@@ -11,9 +11,10 @@
       </ul>
     </div>
 <% end %>
-<div class="row">
-  <div class="col-sm-4 col-sm-offset-4">
-    <%= form_for :menu, html: {class: 'form'}, url: manager_menu_path(@menu), method: :patch do |f| %>  
+<%= form_for :menu, html: {class: 'form'}, url: manager_menu_path(@menu), method: :patch do |f| %>  
+
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4">
         <div class="form-group">
           <%= f.label :name %><br>
           <%= f.text_field :name, class: 'form-control' %>
@@ -22,41 +23,41 @@
           <%= f.label :date %><br>
           <%= f.text_field :date, 'data-provide' => 'datepicker', 'data-date-format' => "yyyy-mm-dd", class: 'form-control' %>
         </div>
-        <br/>
+
+        <div class="form-group">
+          <%= f.submit class: "btn form-control btn-primary" %>
         </div>
-        </div>
-        <% if @menu.items %>
-            <p><b>Items:</b></p>
-            <div class="row">
-              <div class="col-sm-3">Name</div>
-              <div class="col-sm-2 col-sm-offset-1">Description</div>
-              <div class="col-sm-2 col-sm-offset-1">Price</div>
-              <div class="col-sm-3"></div>
-              <br/><br/><br/>
+      </div>
+    </div>
+    <br/> 
+<% end %>
+<% if @menu.items %>
+    <div class="row text-right">
+      <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu), class: 'btn btn-primary' %>
+    </div>
+    <div class="row text-center">
+      <div class="col-sm-2">Name</div>
+      <div class="col-sm-4 col-sm-offset-1">Description</div>
+      <div class="col-sm-1 col-sm-offset-1">Price</div>
+      <div class="col-sm-3"></div>
+      <br/><br/>
+    </div>
+    <div class="row text-center background-white">
+      <div class="col-sm-12">
+        <% @menu.items.each do |item| %>
+            <div class="row hover-div">
+              <br/>
+
+              <div class="col-sm-2"><%= item.name %></div>
+              <div class="col-sm-4 col-sm-offset-1"><%= item.description %></div>
+              <div class="col-sm-1 col-sm-offset-1"><%= item.price %></div>
+              <div class="col-sm-2 col-sm-offset-1"><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) %>&nbsp;&nbsp; <%= link_to 'Delete', manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete%></div>
             </div>
-
-              <% @menu.items.each do |item| %>
-                <div class="row">
-                  <div class="col-sm-3 background-white"><%= item.name %></div>
-                  <div class="col-sm-2 col-sm-offset-1 background-white"><%= item.description %></div>
-                  <div class="col-sm-2 col-sm-offset-1 background-white"><%= item.price %></div>
-                  <div class="col-sm-2 col-sm-offset-1"><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id), class: "btn btn-primary" %>&nbsp;&nbsp; <%= link_to 'Delete', manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete, class: "btn btn-primary" %></div>
-                </div>
-                <hr/>
-              <% end %>
         <% end %>
+      </div>
+    </div>
+<% end %>
 
-        <br/>
-
-        <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu) %>
-        <br/><br/>
-
-        <p>
-          <%= f.submit class: "btn btn-lg btn-primary" %>
-        </p>
-         
-    <% end %>
-
-    <br/><br/>
-    <%= link_to '<- Back to menu', menu_path(id: @menu) %>
-     
+<br/><br/>
+<%= link_to '<- Back to menu', menu_path(id: @menu) %>
+ 

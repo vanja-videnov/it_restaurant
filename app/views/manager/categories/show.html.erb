@@ -19,14 +19,19 @@
           <br/><br/>
           <b><i>Subcategories:</i></b><br/><br/><br/>
         </div>
-        <% @category.subcategories.each do |u| %>
-            <div class="row">
-              <div class="col-sm-2 background-white">*<%= u.name %></div>
-              <div class="col-sm-2 col-sm-offset-2"><%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id: @category), class: "btn btn-primary" %></div>
-              <div class="col-sm-4"><%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete, class: "btn btn-primary" %></div>
-            </div>
-            <hr/>
-        <% end %>
+        <div class="row background-white"><br/>
+
+          <div class="col-sm-12">
+            <% @category.subcategories.each do |u| %>
+                <div class="row hover-div">
+                  <div class="col-sm-2 ">*<%= u.name %></div>
+                  <div class="col-sm-2 col-sm-offset-2"><%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id: @category), class: "btn btn-primary" %></div>
+                  <div class="col-sm-4"><%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete, class: "btn btn-primary" %></div>
+                </div>
+                <br/>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 
 <% end %>

@@ -40,19 +40,19 @@
 <br/>
 <br/>
 <% if @table.orders %>
-    <table class="table ">
+    <table class="table">
       <tr style="border-top: hidden">
         <% @table.orders.each do |o| %>
             <td>
               <table class="table ">
-                <tr style="border-bottom: hidden">
+                <tr style="border: hidden" class="background">
                   <td>
                     <i><%= o.user.name %></i>
                   </td>
                 </tr>
-                <tr>
+                <tr class="background">
                   <td>
-                    <table class="table table-hover">
+                    <table class="table table-hover text-center">
                       <% o.order_menu_items.each do |p| %>
                           <tr>
                             <td>
@@ -63,10 +63,8 @@
                               <i><%= link_to 'delete', table_order_order_menu_item_path(id: p.id, table_id: @table.id, order_id: o.id, delete: true), method: :delete unless is_manager? %></i>
                               &nbsp;&nbsp;
                               <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id: @table.id, order_id: o.id, delete: false), method: :delete, class: "btn btn-primary" unless is_manager? %>
-
                             </td>
                           </tr>
-
                       <% end %>
                     </table>
                   </td>
