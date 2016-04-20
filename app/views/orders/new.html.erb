@@ -1,44 +1,44 @@
 <% if @categories %>
-    <table width="100%" class="table">
-      <thead>
-      <tr>
-        <% @categories.each do |o| %>
-            <th><%= o.name %></th>
-        <% end %>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <% @categories.each do |o| %>
-            <td>
-              <% o.subcategories.each do |s| %>
-                  <% if s.items.count>0 %>
-                      <table class="table table-hover">
-                        <thead>
-                        <tr >
-                          <th class="background" colspan="2"><i><%= s.name if s.items.count>0 %></i></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <% s.items.each do |i| %>
-                            <tr>
-                              <td>
-                                <%= i.name %>
-                              </td>
-                              <td width="30%">
-                                <%= link_to 'Add', table_order_order_menu_items_path(table_id: @table.id, order_id: @order.id, item_id: i.id), method: :post %>
-                              </td>
-                            </tr>
-                        <% end %>
-                        </tbody>
-                      </table>
-                  <% end %>
-              <% end %>
-            </td>
-        <% end %>
-      </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <% @categories.each_slice(4) do |slice| %>
+          <div class="row ">
+            <% slice.each do |u| %>
+                <div class="col-sm-2">
+                  <div class="row text-center"><i><b><%= u.name %></b></i><br/></div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <% u.subcategories.each do |p| %>
+                          <% if p.items.present? %>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  <div class="row"><br/>
+                                    <i>&nbsp;&nbsp;<%= p.name %></i><br/>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-12 background-white">
+                                      <% p.items.each do |i| %>
+                                          <div class="row hover-div "><br/>
+
+                                            <div class="col-sm-12">
+                                              <%= link_to i.name, table_order_order_menu_items_path(table_id: @table.id, order_id: @order.id, item_id: i.id), method: :post %>
+                                            </div>
+                                          </div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-1">&nbsp;</div>
+            <% end %>
+          </div>
+          <br/><br/>
+      <% end %>
+    </div>
 <% end %>
 
 <%= link_to 'Save order', table_path(id: @table), class: "btn btn-primary form-control" %>

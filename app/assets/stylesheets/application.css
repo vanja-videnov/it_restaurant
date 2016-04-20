@@ -20,5 +20,9 @@
 }
 .background-white{
     background-color: white;
+    border-radius: 25px;
 }
-.hover-div:hover {background: #f5f5f5;}
+.hover-div:hover {
+    background: #f5f5f5;
+    border-radius: 25px;
+}

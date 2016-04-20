@@ -12,21 +12,26 @@
   </div>
   <br/><br/>
 </div>
-<div class="row text-center form-control">
-  <div class="col-sm-3 ">
-    <%= @user.name %>
-  </div>
-  <div class="col-sm-3 col-sm-offset-1">
-    <%= @user.email %>
-  </div>
-  <div class="col-sm-5 ">
-    <%= @user.telephone %>
+<div class="row text-center">
+  <div class="col-sm-12  background-white"><br/>
+
+    <div class="col-sm-3 ">
+      <%= @user.name %>
+    </div>
+    <div class="col-sm-3 col-sm-offset-1">
+      <%= @user.email %>
+    </div>
+    <div class="col-sm-5 ">
+      <%= @user.telephone %>
+    </div>
+    <br/><br/>
   </div>
 </div>
 
 <% if logged_in? && is_manager? %>
     <div class="row text-center">
       <br/>
+
       <div class="col-sm-5 col-sm-offset-3 ">
         <%= link_to 'Edit', edit_user_path(id: @user.id), class: "btn btn-lg btn-primary" %> &nbsp; &nbsp;&nbsp; &nbsp;
         <%= link_to 'Delete', manager_user_path(id: @user.id), method: :delete, class: "btn btn-lg btn-primary" %>

@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resources :menus, only:[:index, :show]
   # resources :items, only:[:index, :show]
 
-  resources :manager, only: :index
+  resources :manager, only: [:index]
   namespace :manager do
     resources :reports, only:[:show, :index]
     resources :users, only:[:new, :create, :destroy]

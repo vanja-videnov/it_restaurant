@@ -14,18 +14,19 @@
       </div>
   <% end %>
   <div class="col-sm-offset-1 col-sm-5 text-left">
-    <%= form_for :item, html: {class: 'form'}, url: manager_menu_item_path(menu_id: @item.menu_id, id: @item.id), method: :patch do |f| %>  
+    <%= form_for :item, html: {class: 'form'}, url: manager_menu_item_path(menu_id: @item.menu_id, id: @item.id), method: :patch do |f| %>
+          
         <div class="form-group">
           <%= f.label :subcategory %><br>
-          <%= f.select :subcategory, @subcategories.collect { |u| [u.name, u.id] }, {:selected => [@item.subcategory.name, @item.subcategory.id]}, {class: 'form-control'}%>
+          <%= f.select :subcategory, @subcategories.collect { |u| [u.name, u.id] }, {:selected => [@item.subcategory.name, @item.subcategory.id]}, {class: 'form-control'} %>
         </div>
         <div class="form-group">
           <%= f.label :name %><br>
-          <%= f.text_field :name , class: 'form-control'%>
+          <%= f.text_field :name, class: 'form-control' %>
         </div>
         <div class="form-group">
           <%= f.label :description %><br>
-          <%= f.text_area :description , class: 'form-control'%>
+          <%= f.text_area :description, class: 'form-control' %>
         </div>
         <div class="form-group">
           <%= f.label :price %><br>
@@ -33,7 +34,7 @@
         </div>
         <div class="form-group">
           <%= f.label :image %>
-          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', class:'file_update' %>
+          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', class: 'file_update' %>
         </div>
         <div class="form-group">
           <%= f.submit class: "btn btn-primary form-control" %>
@@ -41,9 +42,11 @@
          
     <% end %>
   </div>
-  <div class="col-sm-3 col-sm-offset-2 background-white text-center" style="margin-top: 10%">
-    <%= image_tag @item.image.url, size: "200" %>
-  </div>
+  <% if @item.image.present? %>
+      <div class="col-sm-3 col-sm-offset-2 background-white text-center" style="margin-top: 10%">
+        <%= image_tag @item.image.url, size: "200" %>
+      </div>
+  <% end %>
 </div>
 
 <%= link_to '<- Back to menus', menus_path %>

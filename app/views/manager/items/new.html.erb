@@ -18,7 +18,8 @@
     </div>
 
 
-    <%= form_for [:manager, @item], html: {class: 'form'}, url: manager_menu_items_path(menu_id: @item.menu_id) do |f| %>  
+    <%= form_for [:manager, @item], html: {class: 'form'}, url: manager_menu_items_path(menu_id: @item.menu_id) do |f| %>
+          
         <div class="form-group">
           <%= f.label :subcategory %><br>
           <%= f.select :subcategory, @subcategories.collect { |u| [u.name, u.id] }, {required: true}, {class: 'form-control'} %>
@@ -38,7 +39,7 @@
 
         <div class="form-group">
           <%= f.label :image %>
-          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', class:'file_update' %>
+          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', class: 'file_update' %>
         </div>
 
         <div class="form-group">

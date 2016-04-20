@@ -31,27 +31,36 @@
     </div>
     <br/> 
 <% end %>
-<% if @menu.items %>
-    <div class="row text-right">
-      <%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu), class: 'btn btn-primary' %>
-    </div>
-    <div class="row text-center">
-      <div class="col-sm-2">Name</div>
-      <div class="col-sm-4 col-sm-offset-1">Description</div>
-      <div class="col-sm-1 col-sm-offset-1">Price</div>
-      <div class="col-sm-3"></div>
+<% if @menu.items.present? %>
+    <div class="row">
+      <div class="col-sm-3">
+        <b><i>Name</i></b>
+      </div>
+      <div class="col-sm-5">
+        <b><i>Description</i></b>
+      </div>
+      <div class="col-sm-3 col-sm-offset-1">
+        <b><i>Price</i></b>
+      </div>
       <br/><br/>
     </div>
-    <div class="row text-center background-white">
+    <div class="row background-white">
       <div class="col-sm-12">
         <% @menu.items.each do |item| %>
-            <div class="row hover-div">
-              <br/>
+            <div class="row hover-div"><br/>
 
-              <div class="col-sm-2"><%= item.name %></div>
-              <div class="col-sm-4 col-sm-offset-1"><%= item.description %></div>
-              <div class="col-sm-1 col-sm-offset-1"><%= item.price %></div>
-              <div class="col-sm-2 col-sm-offset-1"><%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) %>&nbsp;&nbsp; <%= link_to 'Delete', manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete%></div>
+              <div class="col-sm-3">
+                <%= item.name %>
+              </div>
+              <div class="col-sm-5">
+                <%= item.description %>
+              </div>
+              <div class="col-sm-1 col-sm-offset-1">
+                <%= item.price %>
+              </div>
+              <div class="col-sm-1 col-sm-offset-1">
+                <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) if is_manager? %>
+              </div>
             </div>
         <% end %>
       </div>

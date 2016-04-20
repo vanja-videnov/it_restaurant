@@ -25,48 +25,11 @@
       <% end %>
     </div>
     <br/>
-
-    <% if @menu.items.present? %>
-        <div class="row">
-          <div class="col-sm-3">
-            <b><i>Name</i></b>
-          </div>
-          <div class="col-sm-5">
-            <b><i>Description</i></b>
-          </div>
-          <div class="col-sm-3 col-sm-offset-1">
-            <b><i>Price</i></b>
-          </div>
-          <br/><br/>
-        </div>
-        <div class="row background-white">
-          <div class="col-sm-12">
-            <% @menu.items.each do |item| %>
-                <div class="row hover-div"><br/>
-                  <div class="col-sm-3">
-                    <%= item.name %>
-                  </div>
-                  <div class="col-sm-5">
-                    <%= item.description %>
-                  </div>
-                  <div class="col-sm-1 col-sm-offset-1">
-                    <%= item.price %>
-                  </div>
-                  <div class="col-sm-1 col-sm-offset-1">
-                    <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) if is_manager? %>
-                  </div>
-                </div>
-            <% end %>
-          </div>
-        </div>
-    <% end %>
 <% end %>
-
 
 <% if @subcategories.present? %>
     <br/>
-    <p>Items in current menu's subcategories</p>
-
+    <p>Items in current menu's subcategories:</p>
     <% @subcategories.each_slice(3) do |slice| %>
         <div class="row">
           <% slice.each do |o| %>
@@ -79,21 +42,21 @@
                   <br/>
                 </div>
                 <% if o.items.count>0 %>
-                    <div class="row background-white table-bordered"><div class="col-lg-12">
-                      <% o.items.each do |i| %>
-                          <div class="row hover-div"><br/>
-                            <div class="col-sm-4 col-sm-offset-1"><%= i.name %></div>
-                            <div class="col-sm-4"><%= i.price %></div>
-                            <div class="col-sm-2"> <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: i.menu_id, id: i.id) if is_manager? %></div>
-                          </div>
-                      <% end %>
+                    <div class="row background-white table-bordered">
+                      <div class="col-lg-12">
+                        <% o.items.each do |i| %>
+                            <div class="row hover-div"><br/>
+
+                              <div class="col-sm-4 col-sm-offset-1"><%= i.name %></div>
+                              <div class="col-sm-4"><%= i.price %></div>
+                              <div class="col-sm-2"> <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: i.menu_id, id: i.id) if is_manager? %></div>
+                            </div>
+                        <% end %>
                 <% end %>
-                    </div> </div>
+                </div> </div>
 
               </div>
           <% end %>
         </div>
-
-
     <% end %>
 <% end %>

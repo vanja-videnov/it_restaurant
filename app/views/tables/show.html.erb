@@ -40,38 +40,34 @@
 <br/>
 <br/>
 <% if @table.orders %>
-    <table class="table">
-      <tr style="border-top: hidden">
-        <% @table.orders.each do |o| %>
-            <td>
-              <table class="table ">
-                <tr style="border: hidden" class="background">
-                  <td>
-                    <i><%= o.user.name %></i>
-                  </td>
-                </tr>
-                <tr class="background">
-                  <td>
-                    <table class="table table-hover text-center">
-                      <% o.order_menu_items.each do |p| %>
-                          <tr>
-                            <td>
-                              *<%= p.item.name %>
-                            </td>
-                            <td> <%= p.quantity %></td>
-                            <td>
-                              <i><%= link_to 'delete', table_order_order_menu_item_path(id: p.id, table_id: @table.id, order_id: o.id, delete: true), method: :delete unless is_manager? %></i>
-                              &nbsp;&nbsp;
-                              <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id: @table.id, order_id: o.id, delete: false), method: :delete, class: "btn btn-primary" unless is_manager? %>
-                            </td>
-                          </tr>
-                      <% end %>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-        <% end %>
-      </tr>
-    </table>
+    <% @table.orders.each_slice(3) do |slice| %>
+        <div class="row ">
+          <% slice.each do |u| %>
+              <div class="col-sm-3">
+                <div class="row"><i><%= u.user.name %></i><br/></div>
+                <br/>
+
+                <div class="row">
+                  <div class="col-sm-12 background-white">
+                    <% u.order_menu_items.each do |p| %>
+                        <div class="row hover-div"><br/>
+
+                          <div class="col-sm-6"> <%= p.quantity %> <%= p.item.name %></div>
+                          <div class="col-sm-6">
+                            <i><%= link_to 'delete', table_order_order_menu_item_path(id: p.id, table_id: @table.id, order_id: u.id, delete: true), method: :delete unless is_manager? %></i>
+                            &nbsp;&nbsp;
+                            <%= link_to 'pay', table_order_order_menu_item_path(id: p.id, table_id: @table.id, order_id: u.id, delete: false), method: :delete, class: "btn btn-primary" unless is_manager? %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-1"> &nbsp;</div>
+          <% end %>
+        </div>
+
+        <br/>
+        <br/>
+    <% end %>
 <% end %>

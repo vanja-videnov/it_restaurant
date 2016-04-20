@@ -1,20 +1,22 @@
 <div class="row">
   <div class="col-sm-4 col-sm-offset-4">
-<h1>Create subcategory</h1>
-<%= form_for [:manager, @subcategory], html: {class: 'form'}, url: manager_category_subcategories_path(category_id: @subcategory.category_id) do |f| %>  
+    <h1>Create subcategory</h1>
+    <%= form_for [:manager, @subcategory], html: {class: 'form'}, url: manager_category_subcategories_path(category_id: @subcategory.category_id) do |f| %>
+          
         <div class="form-group">
-      <%= f.label :name %><br>
-      <%= f.text_field :name, required: true , class: 'form-control'%>
-    </div>
-          <div class="form-group">
-      <%= f.label :category_id %><br>
-      <%= f.select :category_id, Category.all.collect { |u| [u.name, u.id] }, {required: true}, {class: 'form-control'}%>
-    </div>
-            <div class="form-group">
-      <%= f.submit class: "btn form-control btn-primary" %>
-    </div>
+          <%= f.label :name %><br>
+          <%= f.text_field :name, required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :category_id %><br>
+          <%= f.select :category_id, Category.all.collect { |u| [u.name, u.id] }, {required: true}, {class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: "btn form-control btn-primary" %>
+        </div>
+         
+    <% end %>
      
-<% end %>
- </div>
-    </div>
+  </div>
+</div>
 <%= link_to 'Back', menus_path %>
