@@ -32,3 +32,7 @@
 .bg-table {
     background-color: #E3C5D5;
 }
+
+.navbar ul li a {
+    color: black !important;
+}

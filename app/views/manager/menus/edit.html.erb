@@ -62,6 +62,9 @@
                 <% if is_manager? %>
                     <%= link_to edit_manager_menu_item_path(menu_id: @menu, id: item.id) do %>
                         <span class="glyphicon glyphicon-pencil"></span>
+                    <% end %>&nbsp;&nbsp;
+                    <%= link_to manager_menu_item_path(menu_id: @menu, id: item.id), method: :delete do %>
+                        <span class="glyphicon glyphicon-trash"></span>
                     <% end %>
                 <% end %>
               </div>
