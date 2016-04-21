@@ -2,61 +2,85 @@
     <p class='error'><%= h flash[:error] %></p>
 <% end -%>
 <% if @menu %>
-    <div class="row"><br/>
+    <div class="row bg-table-header"><br/>
 
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <% if @menu.name.present? %>Name: &nbsp;<%= @menu.name %>;&nbsp;
         <% end %>
-        Date: &nbsp;<%= @menu.date %></div>
+        Date: &nbsp;<%= @menu.date %>
+      </div>
       <% if is_manager? %>
-          <div class="col-sm-1 col-sm-offset-1">
-            <b><i><%= link_to 'Edit menu', edit_manager_menu_path(id: @menu.id), class: "btn btn-primary" %></i></b>
+          <div class="col-sm-1 ">
+            <b><i><%= link_to edit_manager_menu_path(id: @menu.id), class: "btn btn-primary" do %>
+                  <span class="glyphicon glyphicon-pencil"></span>
+              <% end %></i></b>
+          </div>
+          <div class="col-sm-1 ">
+            <i><%= link_to manager_menu_path(id: @menu.id), method: :delete, class: "btn btn-primary" do %>
+                  <span class="glyphicon glyphicon-trash"></span>
+              <% end %></i>
           </div>
           <div class="col-sm-1 col-sm-offset-1">
-            <i><%= link_to 'Add item', new_manager_menu_item_path(menu_id: @menu), class: "btn btn-primary" %></i></div>
+            <i><%= link_to new_manager_menu_item_path(menu_id: @menu), class: "btn btn-primary" do %>
+                  <span class="glyphicon glyphicon-plus">Item</span>
+              <% end %></i></div>
           <div class="col-sm-1 col-sm-offset-1">
-            <i><%= link_to 'Add category', new_manager_category_path, class: "btn btn-primary" %></i></div>
+            <i><%= link_to new_manager_category_path, class: "btn btn-primary" do %>
+                  <span class="glyphicon glyphicon-plus">Category</span>
+              <% end %></i></div>
           <div class="col-sm-1 col-sm-offset-1">
-            <i><%= link_to 'Add subcategory', new_manager_category_subcategory_path(category_id: 0), class: "btn btn-primary" %></i>
-          </div>
-          <div class="col-sm-1 col-sm-offset-1">
-            <i><%= link_to 'Delete menu', manager_menu_path(id: @menu.id), method: :delete, class: "btn btn-primary" %></i>
+            <i><%= link_to new_manager_category_subcategory_path(category_id: 0), class: "btn btn-primary" do %>
+                  <span class="glyphicon glyphicon-plus">Subcategory</span>
+              <% end %></i>
           </div>
       <% end %>
     </div>
-    <br/>
+    <div class="row bg-table-header"><br/></div>
 <% end %>
 
-<% if @subcategories.present? %>
+<% if @subcategories.present? %><br/>
     <br/>
-    <p>Items in current menu's subcategories:</p>
-    <% @subcategories.each_slice(3) do |slice| %>
-        <div class="row">
-          <% slice.each do |o| %>
-              <div class="col-sm-4">
-                <div class="row">
-                  <div class="col-sm-4 col-sm-offset-1"><i><b><%= o.name if o.items.count>0 %></b></i> &nbsp;&nbsp;
-                  </div>
-                  <div class="col-sm-4"><i>price</i> &nbsp;&nbsp;</div>
-                  <div class="col-sm-2"></div>
-                  <br/>
-                </div>
+    <table width="100%">
+      <tr>
+        <td>Items in current menu's subcategories:</td>
+      </tr>
+      <% @subcategories.each_slice(3) do |slice| %>
+          <tr>
+            <% slice.each do |o| %>
                 <% if o.items.count>0 %>
-                    <div class="row background-white table-bordered">
-                      <div class="col-lg-12">
-                        <% o.items.each do |i| %>
-                            <div class="row hover-div"><br/>
-
-                              <div class="col-sm-4 col-sm-offset-1"><%= i.name %></div>
-                              <div class="col-sm-4"><%= i.price %></div>
-                              <div class="col-sm-2"> <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: i.menu_id, id: i.id) if is_manager? %></div>
-                            </div>
-                        <% end %>
+                    <td style="padding-right: 2%">
+                      <table class="table ">
+                        <tr class="bold italic text-center">
+                          <td class=" bg-table-header"><%= o.name %>
+                          </td>
+                        </tr>
+                        <tr class="bg-table">
+                          <td>
+                            <table class="table table-hover">
+                              <% o.items.each do |i| %>
+                                  <tr class="bg-table">
+                                    <td><%= i.name %></td>
+                                    <td><%= i.price %></td>
+                                    <td>
+                                      <% if is_manager? %>
+                                          <%= link_to edit_manager_menu_item_path(menu_id: i.menu_id, id: i.id) do %>
+                                              <span class="glyphicon glyphicon-pencil"></span>
+                                          <% end %>
+                                      <% end %>
+                                    </td>
+                                  </tr>
+                              <% end %>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
                 <% end %>
-                </div> </div>
-
-              </div>
-          <% end %>
-        </div>
-    <% end %>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
 <% end %>
+<div class="row text-center">
+  <%= link_to '<- Back', menus_path %>
+</div>

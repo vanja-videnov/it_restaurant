@@ -16,7 +16,8 @@
  */
 
 .background{
-    background-color: #E0D6A8;
+    /*background-color: #E0D6A8;*/
+    background-color: #F2E4EB;
 }
 .background-white{
     background-color: white;
@@ -24,5 +25,10 @@
 }
 .hover-div:hover {
     background: #f5f5f5;
-    border-radius: 25px;
+}
+.bg-table-header {
+    background-color: #D490B4;
+}
+.bg-table {
+    background-color: #E3C5D5;
 }

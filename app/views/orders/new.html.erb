@@ -1,5 +1,5 @@
 <% if @categories %>
-    <div class="row">
+    <div class="row"><br/>
       <% @categories.each_slice(4) do |slice| %>
           <div class="row ">
             <% slice.each do |u| %>
@@ -11,11 +11,11 @@
                           <% if p.items.present? %>
                               <div class="row">
                                 <div class="col-sm-12">
-                                  <div class="row"><br/>
+                                  <div class="row bg-table-header"><br/>
                                     <i>&nbsp;&nbsp;<%= p.name %></i><br/>
                                   </div>
                                   <div class="row">
-                                    <div class="col-sm-12 background-white">
+                                    <div class="col-sm-12 bg-table text-center">
                                       <% p.items.each do |i| %>
                                           <div class="row hover-div "><br/>
 
@@ -28,6 +28,7 @@
                                   </div>
                                 </div>
                               </div>
+                              <div class="row"><br/></div>
                           <% end %>
                       <% end %>
                     </div>

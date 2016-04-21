@@ -4,7 +4,7 @@
 <% if is_manager? %>
     <div class="row">
       <div class="col-sm-5  ">
-        <div class="row background">
+        <div class="row bg-table-header">
           <br/>
 
           <div class="col-sm-9 "><i><b>Menu list:</b></i></div>
@@ -13,45 +13,54 @@
           <br/><br/><br/>
         </div>
         <% if @menus %>
-
-            <div class="col-sm-12  background-white ">
-              <% @menus.each do |u| %>
-                  <div class="row hover-div">
-                    <br/>
-
-                    <div class="col-sm-9 "><%= u.name if u.name.present? %>* <%= u.date %>&nbsp;&nbsp;
-                      <%= link_to 'Show', menu_path(id: u.id) %></div>
-                    <div class="col-sm-3 ">
-                      <%= link_to 'Add item', new_manager_menu_item_path(menu_id: u.id) %>
-                    </div>
-                  </div>
-              <% end %>
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="bg-table table table-hover" style="width: 100%">
+                  <% @menus.each do |u| %>
+                      <tr>
+                        <td><%= u.name if u.name.present? %>* <%= u.date %>&nbsp;&nbsp;
+                          <%= link_to 'Show', menu_path(id: u.id) %></td>
+                        <td>
+                          <%= link_to new_manager_menu_item_path(menu_id: u.id) do %>
+                              <span class="glyphicon glyphicon-plus">Item</span>
+                          <% end %>
+                        </td>
+                      </tr>
+                  <% end %>
+                </table>
+              </div>
             </div>
         <% end %>
       </div>
       <div class="col-sm-6 col-sm-offset-1 ">
-        <div class="row background">
+        <div class="row bg-table-header">
           <br/>
 
-          <div class="col-sm-5 "><i><b>Categories:</b></i></div>
-          <div class="col-sm-6 col-sm-offset-1">
+          <div class="col-sm-9 "><i><b>Categories:</b></i></div>
+          <div class="col-sm-3">
             <i><b><%= link_to 'New', new_manager_category_path, class: 'btn btn-primary' %></b></i></div>
           <br/><br/><br/>
         </div>
         <% if @categories %>
             <div class="row">
-              <div class="col-sm-12  background-white ">
-                <% @categories.each do |u| %>
-                    <div class="row hover-div"><br/>
-
-                      <div class="col-sm-5 ">*<%= u.name %> &nbsp;&nbsp; <%= link_to 'Show', manager_category_path(id: u.id) %></div>
-                      <div class="col-sm-6 col-sm-offset-1 ">
-                        <%= link_to 'Add subcategory', new_manager_category_subcategory_path(category_id: u.id) %>
-                        &nbsp;&nbsp;
-                        <%= link_to 'Delete', manager_category_path(id: u.id), method: :delete %>
-                      </div>
-                    </div>
-                <% end %>
+              <div class="col-sm-12 ">
+                <table class="bg-table table table-hover">
+                  <% @categories.each do |u| %>
+                      <tr>
+                        <td>*<%= u.name %> &nbsp;&nbsp; <%= link_to 'Show', manager_category_path(id: u.id) %></td>
+                        <td>
+                          <%= link_to new_manager_category_subcategory_path(category_id: u.id) do %>
+                              <span class="glyphicon glyphicon-plus">Subcategory</span>
+                          <% end %>
+                        </td>
+                        <td>
+                          <%= link_to manager_category_path(id: u.id), method: :delete do %>
+                              <span class="glyphicon glyphicon-trash"></span>
+                          <% end %>
+                        </td>
+                      </tr>
+                  <% end %>
+                </table>
               </div>
             </div>
         <% end %>
@@ -61,24 +70,28 @@
       <br/><br/>
 
       <div class="col-sm-5 col-sm-offset-3 ">
-        <div class="row background">
-          <br/>
-
-          <div class="col-sm-3 "><i><b>Items:</b></i></div>
-          <br/><br/>
+        <div class="row bg-table-header">
+          <div class="col-sm-3 "><i><b>Items:</b></i> <br/></div>
         </div>
         <% if @items %>
             <div class="row">
-              <div class="col-sm-12  background-white ">
-                <% @items.each do |u| %>
-                    <div class="row hover-div"><br/>
-
-                      <div class="col-sm-9 ">*<%= u.name %> &nbsp;&nbsp; <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: u.menu_id, id: u) %></div>
-                      <div class="col-sm-3 ">
-                        <%= link_to 'Delete', manager_menu_item_path(menu_id: u.menu_id, id: u), method: :delete %>
-                      </div>
-                    </div>
-                <% end %>
+              <div class="col-sm-12">
+                <table class="table table-hover bg-table">
+                  <% @items.each do |u| %>
+                      <tr>
+                        <td>*<%= u.name %> &nbsp;&nbsp; </td>
+                        <td>
+                          <%= link_to edit_manager_menu_item_path(menu_id: u.menu_id, id: u) do %>
+                              <span class="glyphicon glyphicon-pencil"></span>
+                          <% end %></td>
+                        <td>
+                          <%= link_to manager_menu_item_path(menu_id: u.menu_id, id: u), method: :delete do %>
+                              <span class="glyphicon glyphicon-trash"></span>
+                          <% end %>
+                        </td>
+                      </tr>
+                  <% end %>
+                </table>
               </div>
             </div>
         <% end %>
@@ -88,7 +101,7 @@
 
 <% else %>
     <% if @categories %>
-        <div class="row">
+        <div class="row"><br/>
           <% @categories.each_slice(3) do |slice| %>
               <div class="row ">
                 <% slice.each do |u| %>
@@ -100,13 +113,14 @@
                               <% if p.items.present? %>
                                   <div class="row">
                                     <div class="col-sm-12">
-                                      <div class="row"><br/>
+                                      <div class="row bg-table-header"><br/>
                                         <i>&nbsp;&nbsp;<%= p.name %></i><br/>
                                       </div>
                                       <div class="row">
-                                        <div class="col-sm-12 background-white">
+                                        <div class="col-sm-12 bg-table">
                                           <% p.items.each do |i| %>
-                                              <div class="row text-center"><br/>
+                                              <div class="row text-center "><br/>
+
                                                 <div class="col-sm-12">
                                                   <%= i.name %>
                                                 </div>
@@ -116,6 +130,7 @@
                                       </div>
                                     </div>
                                   </div>
+                                  <div class="row"><br/></div>
                               <% end %>
                           <% end %>
                         </div>

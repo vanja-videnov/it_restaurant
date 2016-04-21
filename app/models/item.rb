@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   has_many :reports, dependent: :destroy
   belongs_to :subcategory
   belongs_to :menu
+  before_destroy :delete_image_if_present
 
   mount_uploader :image, ImageUploader # Tells rails to use this uploader for this model.
 
@@ -14,5 +15,12 @@ class Item < ActiveRecord::Base
     @item.menu_id = menu_id
     @item.subcategory_id = subcategory_id
     @item.save
+  end
+
+  def delete_image_if_present
+    name = self.name
+
+    FileUtils.rm_rf('/uploads/item/#{name}') if self.image.present?
+
   end
 end

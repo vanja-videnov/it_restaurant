@@ -1,44 +1,32 @@
-<div class="row text-center">
-  <br/><br/>
-
-  <div class="col-sm-2">
-    <i><b>Name</b></i>
-  </div>
-  <div class="col-sm-2 col-sm-offset-1">
-    <i><b>Email</b></i>
-  </div>
-  <div class="col-sm-2 col-sm-offset-1">
-    <i><b>Telephone</b></i>
-  </div>
-  <div class="col-sm-3 col-sm-offset-1">
-    <i><b>Options</b></i>
-  </div>
-  <br/><br/>
-</div>
 <% if @users %>
-    <div class="row background-white">
+    <table class="table table-hover">
+      <thead class="bg-table-header">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Telephone</th>
+        <th>Options</th>
+      </tr>
+      </thead>
 
-      <div class="col-sm-12">
-        <% @users.each do |u| %>
-            <div class="row text-center hover-div">
-              <br/>
+      <tbody class="table table-hover">
+      <% @users.each do |u| %>
+          <tr class="bg-table">
+            <td><%= u.name %> &nbsp;&nbsp;</td>
+            <td><%= u.email %> &nbsp;&nbsp;<br/></td>
+            <td><%= u.telephone %></td>
+            <td>
+              <%= link_to 'Show', user_path(id: u.id) %>&nbsp;&nbsp;
+              <%= link_to edit_user_path(id: u.id) do %> <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>&nbsp;&nbsp;
+              <%= link_to manager_user_path(id: u.id), method: :delete do %>
+                  <span class="glyphicon glyphicon-trash"></span>
+              <% end %>
+            </td>
+          </tr>
 
-              <div class="col-sm-2 ">
-                <%= u.name %>
-              </div>
-              <div class="col-sm-2 col-sm-offset-1 ">
-                <%= u.email %>
-              </div>
-              <div class="col-sm-2 col-sm-offset-1">
-                <%= u.telephone %>
-              </div>
-              <div class="col-sm-3 col-sm-offset-1">
-                <%= link_to 'Show', user_path(id: u.id) %>&nbsp;&nbsp;
-                <%= link_to 'Edit', edit_user_path(id: u.id) %>&nbsp;&nbsp;
-                <%= link_to 'Delete', manager_user_path(id: u.id), method: :delete %>
-              </div>
-            </div>
-        <% end %>
-      </div>
-    </div>
+
+      <% end %>
+      </tbody>
+    </table>
 <% end %>

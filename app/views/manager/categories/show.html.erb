@@ -1,40 +1,56 @@
 <% if @category %>
-    <div class="row"><br/>
+    <div class="row bg-table-header"><br/>
 
-      <div class="col-sm-3">
-        <b>Name:</b>&nbsp;<%= @category.name %>
-      </div>
-      <div class="col-sm-3">
-        <%= link_to 'Edit', edit_manager_category_path(id: @category.id), class: "btn btn-primary" %>
-      </div>
-      <div class="col-sm-3">
-        <%= link_to 'Delete', manager_category_path(id: @category.id), method: :delete, class: "btn btn-primary" %>
+      <div class="col-sm-9">
+        <b>Name:</b>&nbsp;<%= @category.name %>&nbsp;&nbsp;
+        <%= link_to edit_manager_category_path(id: @category.id), class: "btn btn-primary" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+        <% end %>&nbsp;&nbsp;
+        <%= link_to manager_category_path(id: @category.id), method: :delete, class: "btn btn-primary" do %>
+            <span class="glyphicon glyphicon-trash"></span>
+        <% end %>
       </div>
       <div class="col-sm-3">
         <%= link_to 'New subcategory', new_manager_category_subcategory_path(category_id: @category), class: "btn btn-primary" %>
       </div>
     </div>
+    <div class="row bg-table-header"><br/></div>
+    <div class="row"><br/><br/>
 
-    <% if @category.subcategories.present? %>
-        <div class="row">
-          <br/><br/>
-          <b><i>Subcategories:</i></b><br/>
-        </div>
-        <div class="row"><br/>
-          <div class="col-sm-6  background-white">
-            <% @category.subcategories.each do |u| %>
-                <div class="row hover-div">
-                  <br/>
-                  <div class="col-sm-4 ">*<%= u.name %></div>
-                  <div class="col-sm-2 col-sm-offset-2"><%= link_to 'Edit', edit_manager_category_subcategory_path(id: u.id, category_id: @category) %></div>
-                  <div class="col-sm-1"><%= link_to 'Delete', manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete %></div>
-                  <br/>
-                </div>
-            <% end %>
-          </div>
-        </div>
-    <% end %>
-
+      <div class="col-sm-8 col-sm-offset-2">
+        <table class="table table-hover bg-table">
+          <% if @category.subcategories.present? %>
+              <thead>
+              <tr style="border-top: hidden" class="bg-table-header">
+                <th class="bold italic">Subcategories:&nbsp;&nbsp;
+                </th>
+                <th class="bold italic text-right">Actions:&nbsp;&nbsp;
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @category.subcategories.each do |u| %>
+                  <tr>
+                    <td>*<%= u.name %>
+                    </td>
+                    <td class="text-right">
+                      <%= link_to edit_manager_category_subcategory_path(id: u.id, category_id: @category) do %>
+                          <span class="glyphicon glyphicon-pencil"></span>
+                      <% end %>
+                      &nbsp;&nbsp;
+                      <%= link_to manager_category_subcategory_path(id: u.id, category_id: @category), method: :delete, class: "btn btn-primary" do %>
+                          <span class="glyphicon glyphicon-trash"></span>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
 <% end %>
 <br/>
-<%= link_to '<- Back', menus_path %>
+<div class="row text-center">
+  <%= link_to '<- Back', menus_path %>
+</div>

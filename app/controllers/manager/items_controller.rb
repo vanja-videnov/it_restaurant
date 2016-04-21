@@ -42,11 +42,6 @@ class Manager::ItemsController < ManagerController
 
   def destroy
     @item = Item.find(params[:id])
-    menu_id = @item.menu_id
-    name = @item.name
-
-    FileUtils.rm_rf('/uploads/item/#{name}') if @item.image.present?
-
     @item.destroy
     redirect_to menus_path
   end

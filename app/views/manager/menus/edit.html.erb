@@ -32,7 +32,7 @@
     <br/> 
 <% end %>
 <% if @menu.items.present? %>
-    <div class="row">
+    <div class="row bg-table-header">
       <div class="col-sm-3">
         <b><i>Name</i></b>
       </div>
@@ -44,7 +44,7 @@
       </div>
       <br/><br/>
     </div>
-    <div class="row background-white">
+    <div class="row bg-table">
       <div class="col-sm-12">
         <% @menu.items.each do |item| %>
             <div class="row hover-div"><br/>
@@ -59,7 +59,11 @@
                 <%= item.price %>
               </div>
               <div class="col-sm-1 col-sm-offset-1">
-                <%= link_to 'Edit', edit_manager_menu_item_path(menu_id: @menu, id: item.id) if is_manager? %>
+                <% if is_manager? %>
+                    <%= link_to edit_manager_menu_item_path(menu_id: @menu, id: item.id) do %>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    <% end %>
+                <% end %>
               </div>
             </div>
         <% end %>
